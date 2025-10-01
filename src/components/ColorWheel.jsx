@@ -38,13 +38,15 @@ const ColorWheel = ({ color, setColor }) => {
   const wheelRadius = wheelSize / 2;
   const valueWidth = 20; // Width of the value bar
   const valueHeight = 200; // Height of the value bar
+  const indicatorRadius = 6; // Size of the wheel indicator circle
 
-  // Draw the color wheel (hue and saturation)
+  // Draw the color wheel (hue and saturation) with indicator
   useEffect(() => {
     const canvas = wheelCanvasRef.current;
     const ctx = canvas.getContext('2d');
 
     const drawWheel = () => {
+      // Draw base color wheel
       const image = ctx.createImageData(wheelSize, wheelSize);
       for (let y = -wheelRadius; y < wheelRadius; y++) {
         for (let x = -wheelRadius; x < wheelRadius; x++) {
@@ -69,12 +71,28 @@ const ColorWheel = ({ color, setColor }) => {
         }
       }
       ctx.putImageData(image, 0, 0);
+
+      // Draw indicator circle
+      const angleRad = (selectedHue * Math.PI) / 180;
+      const dist = (selectedSat / 100) * wheelRadius;
+      const centerX = wheelSize / 2;
+      const centerY = wheelSize / 2;
+      const indicatorX = centerX + Math.cos(angleRad) * dist;
+      const indicatorY = centerY + Math.sin(angleRad) * dist;
+
+      ctx.beginPath();
+      ctx.arc(indicatorX, indicatorY, indicatorRadius, 0, 2 * Math.PI);
+      ctx.fillStyle = hsvToHex(selectedHue, selectedSat, selectedValue); // Show actual selected color
+      ctx.fill();
+      ctx.strokeStyle = '#fff'; // White border for visibility
+      ctx.lineWidth = 2;
+      ctx.stroke();
     };
 
     drawWheel();
-  }, [wheelSize, wheelRadius]);
+  }, [wheelSize, wheelRadius, selectedHue, selectedSat, selectedValue]);
 
-  // Draw the value bar (brightness gradient for selected hue/saturation)
+  // Draw the value bar (brightness gradient) with indicator
   useEffect(() => {
     const canvas = valueCanvasRef.current;
     const ctx = canvas.getContext('2d');
@@ -96,10 +114,15 @@ const ColorWheel = ({ color, setColor }) => {
         }
       }
       ctx.putImageData(image, 0, 0);
+
+      // Draw indicator line
+      const yPos = (1 - (selectedValue / 100)) * valueHeight;
+      ctx.fillStyle = '#fff'; // White for visibility
+      ctx.fillRect(0, yPos - 2, valueWidth, 4); // Thin horizontal line
     };
 
     drawValueBar();
-  }, [valueWidth, valueHeight, selectedHue, selectedSat]);
+  }, [valueWidth, valueHeight, selectedHue, selectedSat, selectedValue]);
 
   // Handle clicks/drags on the color wheel
   const handleWheelPointer = (e) => {
@@ -132,30 +155,45 @@ const ColorWheel = ({ color, setColor }) => {
   };
 
   return (
-    <div className="color-wheel-container" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-      <canvas
-        ref={wheelCanvasRef}
-        width={wheelSize}
-        height={wheelSize}
-        style={{ cursor: 'crosshair', display: 'block' }}
-        onMouseDown={() => setDraggingWheel(true)}
-        onMouseUp={() => setDraggingWheel(false)}
-        onMouseLeave={() => setDraggingWheel(false)}
-        onMouseMove={(e) => draggingWheel && handleWheelPointer(e)}
-        onClick={handleWheelPointer}
-      />
-      <canvas
-        ref={valueCanvasRef}
-        width={valueWidth}
-        height={valueHeight}
-        style={{ cursor: 'crosshair', display: 'block', border: '2px solid #ccc', borderRadius: '4px' }}
-        onMouseDown={() => setDraggingValue(true)}
-        onMouseUp={() => setDraggingValue(false)}
-        onMouseLeave={() => setDraggingValue(false)}
-        onMouseMove={(e) => draggingValue && handleValuePointer(e)}
-        onClick={handleValuePointer}
-      />
-      <div style={{ textAlign: 'center', marginTop: '0.5rem' }}>Selected Color: {color}</div>
+    <div className="color-wheel-container" style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexDirection: 'column' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <canvas
+          ref={wheelCanvasRef}
+          width={wheelSize}
+          height={wheelSize}
+          style={{ cursor: 'crosshair', display: 'block' }}
+          onMouseDown={() => setDraggingWheel(true)}
+          onMouseUp={() => setDraggingWheel(false)}
+          onMouseLeave={() => setDraggingWheel(false)}
+          onMouseMove={(e) => draggingWheel && handleWheelPointer(e)}
+          onClick={handleWheelPointer}
+        />
+        <canvas
+          ref={valueCanvasRef}
+          width={valueWidth}
+          height={valueHeight}
+          style={{ cursor: 'crosshair', display: 'block', border: '2px solid #ccc', borderRadius: '4px' }}
+          onMouseDown={() => setDraggingValue(true)}
+          onMouseUp={() => setDraggingValue(false)}
+          onMouseLeave={() => setDraggingValue(false)}
+          onMouseMove={(e) => draggingValue && handleValuePointer(e)}
+          onClick={handleValuePointer}
+        />
+      </div>
+      <div
+        className="color-preview"
+        style={{
+          width: '50px',
+          height: '50px',
+          backgroundColor: hsvToHex(selectedHue, selectedSat, selectedValue),
+          border: '2px solid #ccc',
+          borderRadius: '4px',
+          marginTop: '0.5rem',
+        }}
+      ></div>
+      <div style={{ textAlign: 'center', marginTop: '0.5rem' }}>
+        Selected Color: {color}
+      </div>
     </div>
   );
 };
