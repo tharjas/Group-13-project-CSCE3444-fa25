@@ -197,5 +197,4 @@ const ColorWheel = ({ color, setColor }) => {
     </div>
   );
 };
-
 export default ColorWheel;
