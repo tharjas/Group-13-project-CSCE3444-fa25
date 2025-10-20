@@ -100,3 +100,23 @@ button {
   border-radius: 50%;
   cursor: pointer;
 }
+
+.saved-palettes-manager {
+  margin-top: 2rem;
+}
+
+.saved-palettes-list {
+  list-style: none;
+  padding: 0;
+}
+
+.saved-palette-item {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.saved-palette-item h3 {
+  margin-top: 0;
+}
