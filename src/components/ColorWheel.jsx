@@ -26,6 +26,45 @@ const hsvToHex = (h, s, v) => {
     .toUpperCase()}`;
 };
 
+const hexToHsv = (hex) => {
+  hex = hex.replace(/^#/, '');
+  let r = parseInt(hex.substring(0, 2), 16) / 255;
+  let g = parseInt(hex.substring(2, 4), 16) / 255;
+  let b = parseInt(hex.substring(4, 6), 16) / 255;
+
+  let max = Math.max(r, g, b);
+  let min = Math.min(r, g, b);
+  let h = 0, s = 0, v = max;
+
+  let d = max - min;
+  s = max === 0 ? 0 : d / max;
+
+  if (max === min) {
+    h = 0; // achromatic
+  } else {
+    switch (max) {
+      case r:
+        h = (g - b) / d + (g < b ? 6 : 0);
+        break;
+      case g:
+        h = (b - r) / d + 2;
+        break;
+      case b:
+        h = (r - g) / d + 4;
+        break;
+      default:
+        break;
+    }
+    h *= 60;
+  }
+
+  return {
+    h: h < 0 ? h + 360 : h,
+    s: s * 100,
+    v: v * 100,
+  };
+};
+
 const ColorWheel = ({ color, setColor }) => {
   const wheelCanvasRef = useRef(null);
   const valueCanvasRef = useRef(null);
@@ -39,6 +78,14 @@ const ColorWheel = ({ color, setColor }) => {
   const valueWidth = 20; // Width of the value bar
   const valueHeight = 200; // Height of the value bar
   const indicatorRadius = 6; // Size of the wheel indicator circle
+
+  // Update HSV states when the color prop changes
+  useEffect(() => {
+    const { h, s, v } = hexToHsv(color);
+    setSelectedHue(h);
+    setSelectedSat(s);
+    setSelectedValue(v);
+  }, [color]);
 
   // Draw the color wheel (hue and saturation) with indicator
   useEffect(() => {
@@ -197,4 +244,5 @@ const ColorWheel = ({ color, setColor }) => {
     </div>
   );
 };
+
 export default ColorWheel;

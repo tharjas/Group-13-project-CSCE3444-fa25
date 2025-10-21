@@ -5,11 +5,13 @@ import ColorInputs from './components/ColorInputs';
 import PaletteManager from './components/PaletteManager';
 import ExportOptions from './components/ExportOptions';
 import SavedPalettes from './components/SavedPalettes';
+import ColorBlindnessSimulator from './components/ColorBlindnessSimulator';
 
 function App() {
   const [color, setColor] = useState('#ffffff');
   const [palette, setPalette] = useState([]);
   const [savedPalettes, setSavedPalettes] = useState([]);
+  const [selectedPaletteForSimulation, setSelectedPaletteForSimulation] = useState(null);
 
   useEffect(() => {
     const storedPalettes = localStorage.getItem('savedPalettes');
@@ -61,7 +63,17 @@ function App() {
       <button onClick={saveCurrentPalette} style={{ marginTop: '1rem', width: '100%' }} disabled={palette.length !== 5}>
         Save Palette (requires exactly 5 colors)
       </button>
-      <SavedPalettes palettes={savedPalettes} removePalette={removeSavedPalette} />
+      <SavedPalettes
+        palettes={savedPalettes}
+        removePalette={removeSavedPalette}
+        setSelectedPaletteForSimulation={setSelectedPaletteForSimulation}
+      />
+      {selectedPaletteForSimulation && (
+        <ColorBlindnessSimulator
+          palette={selectedPaletteForSimulation}
+          onClose={() => setSelectedPaletteForSimulation(null)}
+        />
+      )}
       <ExportOptions palette={palette} />
     </div>
   );

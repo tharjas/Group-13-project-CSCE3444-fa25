@@ -120,3 +120,27 @@ button {
 .saved-palette-item h3 {
   margin-top: 0;
 }
+
+#root {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.color-blindness-simulator {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #ccc;
+}
+
+.palette-bar {
+  display: flex;
+  height: 50px;
+  border: 1px solid #ccc;
+  margin-bottom: 1rem;
+}
+
+.saved-palette-item button {
+  margin-right: 0.5rem;
+  margin-top: 0.5rem;
+}
