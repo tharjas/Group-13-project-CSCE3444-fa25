@@ -1,4 +1,3 @@
-// src/App.jsx
 import React, { useState, useEffect } from 'react';
 import ColorWheel from './components/ColorWheel';
 import ColorInputs from './components/ColorInputs';
@@ -6,12 +5,14 @@ import PaletteManager from './components/PaletteManager';
 import ExportOptions from './components/ExportOptions';
 import SavedPalettes from './components/SavedPalettes';
 import ColorBlindnessSimulator from './components/ColorBlindnessSimulator';
+import UIMockups from './components/UIMockups';
 
 function App() {
   const [color, setColor] = useState('#ffffff');
   const [palette, setPalette] = useState([]);
   const [savedPalettes, setSavedPalettes] = useState([]);
   const [selectedPaletteForSimulation, setSelectedPaletteForSimulation] = useState(null);
+  const [showUIMockups, setShowUIMockups] = useState(null); // New state for UI mockups modal
 
   useEffect(() => {
     const storedPalettes = localStorage.getItem('savedPalettes');
@@ -44,7 +45,7 @@ function App() {
       return;
     }
     setSavedPalettes([...savedPalettes, [...palette]]);
-    setPalette([]); // Clear the current palette after saving
+    setPalette([]);
   };
 
   const removeSavedPalette = (indexToRemove) => {
@@ -67,11 +68,18 @@ function App() {
         palettes={savedPalettes}
         removePalette={removeSavedPalette}
         setSelectedPaletteForSimulation={setSelectedPaletteForSimulation}
+        setShowUIMockups={setShowUIMockups} // Pass setter to SavedPalettes
       />
       {selectedPaletteForSimulation && (
         <ColorBlindnessSimulator
           palette={selectedPaletteForSimulation}
           onClose={() => setSelectedPaletteForSimulation(null)}
+        />
+      )}
+      {showUIMockups && (
+        <UIMockups
+          palette={showUIMockups}
+          onClose={() => setShowUIMockups(null)}
         />
       )}
       <ExportOptions palette={palette} />
