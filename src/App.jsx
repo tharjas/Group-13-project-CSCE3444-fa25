@@ -6,6 +6,8 @@ import ExportOptions from './components/ExportOptions';
 import SavedPalettes from './components/SavedPalettes';
 import ColorBlindnessSimulator from './components/ColorBlindnessSimulator';
 import UIMockups from './components/UIMockups';
+import Favorites from './components/Favorites';
+
 
 function App() {
   const [color, setColor] = useState('#ffffff');
@@ -64,6 +66,13 @@ function App() {
       <button onClick={saveCurrentPalette} style={{ marginTop: '1rem', width: '100%' }} disabled={palette.length !== 5}>
         Save Palette (requires exactly 5 colors)
       </button>
+
+      <Favorites
+  currentColor={color}
+  onSelectFavorite={(selectedColor) => setColor(selectedColor)}
+/>
+
+
       <SavedPalettes
         palettes={savedPalettes}
         removePalette={removeSavedPalette}
