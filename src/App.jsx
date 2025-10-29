@@ -8,6 +8,8 @@ import SavedPalettes from './components/SavedPalettes';
 import ColorBlindnessSimulator from './components/ColorBlindnessSimulator';
 import UIMockups from './components/UIMockups';
 import Favorites from './components/Favorites';
+import LeftMenu from './components/LeftMenu';
+import RightMenu from './components/RightMenu';
 
 function App() {
   const [color, setColor] = useState('#ffffff');
@@ -15,33 +17,30 @@ function App() {
   const [savedPalettes, setSavedPalettes] = useState([]);
   const [selectedPaletteForSimulation, setSelectedPaletteForSimulation] = useState(null);
   const [showUIMockups, setShowUIMockups] = useState(null);
+  const [isDark, setIsDark] = useState(false);
 
-  // Load saved palettes from localStorage
   useEffect(() => {
-    const storedPalettes = localStorage.getItem('savedPalettes');
-    if (storedPalettes) {
-      setSavedPalettes(JSON.parse(storedPalettes));
-    }
+    const stored = localStorage.getItem('savedPalettes');
+    if (stored) setSavedPalettes(JSON.parse(stored));
   }, []);
 
-  // Save palettes whenever they change
   useEffect(() => {
     localStorage.setItem('savedPalettes', JSON.stringify(savedPalettes));
   }, [savedPalettes]);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark-mode', isDark);
+  }, [isDark]);
 
   const addColorToPalette = () => {
     if (palette.length >= 5) {
       alert('Palette is limited to 5 colors. Remove some to add more.');
       return;
     }
-    if (!palette.includes(color)) {
-      setPalette([...palette, color]);
-    }
+    if (!palette.includes(color)) setPalette([...palette, color]);
   };
 
-  const removeColorFromPalette = (indexToRemove) => {
-    setPalette(palette.filter((_, index) => index !== indexToRemove));
-  };
+  const removeColorFromPalette = (i) => setPalette(palette.filter((_, idx) => idx !== i));
 
   const saveCurrentPalette = () => {
     if (palette.length !== 5) {
@@ -52,60 +51,61 @@ function App() {
     setPalette([]);
   };
 
-  const removeSavedPalette = (indexToRemove) => {
-    setSavedPalettes(savedPalettes.filter((_, index) => index !== indexToRemove));
-  };
+  const removeSavedPalette = (i) => setSavedPalettes(savedPalettes.filter((_, idx) => idx !== i));
 
-  const handleFavoriteSelect = (hex) => {
-    setColor(hex);
-  };
+  const handleFavoriteSelect = (hex) => setColor(hex);
 
   return (
-    <div className="App">
-      <h1>ColorVision Picker</h1>
+    <>
+      <LeftMenu color={color} setColor={setColor} isDark={isDark} toggleDark={setIsDark} />
 
-      <ColorWheel color={color} setColor={setColor} />
-      <ColorInputs color={color} setColor={setColor} />
+      <main className="main-content" style={{ background: isDark ? '#111' : '#f0f0f0' }}>
+        <div className="app-container">
+          <h1>ColorVision Picker</h1>
 
-      <button onClick={addColorToPalette} style={{ marginTop: '1rem', width: '100%' }}>
-        Add to Palette
-      </button>
+          <ColorWheel color={color} setColor={setColor} />
+          <ColorInputs color={color} setColor={setColor} />
 
-      <Favorites currentColor={color} onSelectFavorite={handleFavoriteSelect} />
+          <button onClick={addColorToPalette} className="full-width">
+            Add to Palette
+          </button>
 
-      <PaletteManager palette={palette} removeColor={removeColorFromPalette} />
+          <Favorites currentColor={color} onSelectFavorite={handleFavoriteSelect} />
 
-      <button
-        onClick={saveCurrentPalette}
-        style={{ marginTop: '1rem', width: '100%' }}
-        disabled={palette.length !== 5}
-      >
-        Save Palette (requires exactly 5 colors)
-      </button>
+          <PaletteManager palette={palette} removeColor={removeColorFromPalette} />
 
-      <SavedPalettes
-        palettes={savedPalettes}
-        removePalette={removeSavedPalette}
-        setSelectedPaletteForSimulation={setSelectedPaletteForSimulation}
-        setShowUIMockups={setShowUIMockups}
-      />
+          <button
+            onClick={saveCurrentPalette}
+            className="full-width"
+            disabled={palette.length !== 5}
+          >
+            Save Palette (requires exactly 5 colors)
+          </button>
 
-      {selectedPaletteForSimulation && (
-        <ColorBlindnessSimulator
-          palette={selectedPaletteForSimulation}
-          onClose={() => setSelectedPaletteForSimulation(null)}
-        />
-      )}
+          <SavedPalettes
+            palettes={savedPalettes}
+            removePalette={removeSavedPalette}
+            setSelectedPaletteForSimulation={setSelectedPaletteForSimulation}
+            setShowUIMockups={setShowUIMockups}
+          />
 
-      {showUIMockups && (
-        <UIMockups
-          palette={showUIMockups}
-          onClose={() => setShowUIMockups(null)}
-        />
-      )}
+          {selectedPaletteForSimulation && (
+            <ColorBlindnessSimulator
+              palette={selectedPaletteForSimulation}
+              onClose={() => setSelectedPaletteForSimulation(null)}
+            />
+          )}
 
-      <ExportOptions palette={palette} />
-    </div>
+          {showUIMockups && (
+            <UIMockups palette={showUIMockups} onClose={() => setShowUIMockups(null)} />
+          )}
+
+          <ExportOptions palette={palette} />
+        </div>
+      </main>
+
+      <RightMenu setPalette={setPalette} setColor={setColor} isDark={isDark} />
+    </>
   );
 }
 
