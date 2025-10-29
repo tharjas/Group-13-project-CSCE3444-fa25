@@ -7,8 +7,6 @@ import ExportOptions from './components/ExportOptions';
 import SavedPalettes from './components/SavedPalettes';
 import ColorBlindnessSimulator from './components/ColorBlindnessSimulator';
 import UIMockups from './components/UIMockups';
-
-// NEW IMPORT
 import Favorites from './components/Favorites';
 
 function App() {
@@ -18,14 +16,46 @@ function App() {
   const [selectedPaletteForSimulation, setSelectedPaletteForSimulation] = useState(null);
   const [showUIMockups, setShowUIMockups] = useState(null);
 
-  // ... (localStorage for savedPalettes stays the same)
+  // Load saved palettes from localStorage
+  useEffect(() => {
+    const storedPalettes = localStorage.getItem('savedPalettes');
+    if (storedPalettes) {
+      setSavedPalettes(JSON.parse(storedPalettes));
+    }
+  }, []);
 
-  const addColorToPalette = () => { /* unchanged */ };
-  const removeColorFromPalette = (indexToRemove) => { /* unchanged */ };
-  const saveCurrentPalette = () => { /* unchanged */ };
-  const removeSavedPalette = (indexToRemove) => { /* unchanged */ };
+  // Save palettes whenever they change
+  useEffect(() => {
+    localStorage.setItem('savedPalettes', JSON.stringify(savedPalettes));
+  }, [savedPalettes]);
 
-  // NEW: callback when a favorite is clicked
+  const addColorToPalette = () => {
+    if (palette.length >= 5) {
+      alert('Palette is limited to 5 colors. Remove some to add more.');
+      return;
+    }
+    if (!palette.includes(color)) {
+      setPalette([...palette, color]);
+    }
+  };
+
+  const removeColorFromPalette = (indexToRemove) => {
+    setPalette(palette.filter((_, index) => index !== indexToRemove));
+  };
+
+  const saveCurrentPalette = () => {
+    if (palette.length !== 5) {
+      alert('Palette must have exactly 5 colors to save.');
+      return;
+    }
+    setSavedPalettes([...savedPalettes, [...palette]]);
+    setPalette([]);
+  };
+
+  const removeSavedPalette = (indexToRemove) => {
+    setSavedPalettes(savedPalettes.filter((_, index) => index !== indexToRemove));
+  };
+
   const handleFavoriteSelect = (hex) => {
     setColor(hex);
   };
@@ -41,9 +71,7 @@ function App() {
         Add to Palette
       </button>
 
-      {/* <<< INSERT FAVORITES HERE >>> */}
       <Favorites currentColor={color} onSelectFavorite={handleFavoriteSelect} />
-      {/* <<< END INSERT >>> */}
 
       <PaletteManager palette={palette} removeColor={removeColorFromPalette} />
 
