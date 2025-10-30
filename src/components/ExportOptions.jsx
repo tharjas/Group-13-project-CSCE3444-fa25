@@ -1,72 +1,74 @@
 import React, { useState } from 'react';
 
-// Helper conversions
-const hexToRgb = (hex) => {
-  hex = hex.replace(/^#/, '');
-  if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
-  const num = parseInt(hex, 16);
-  const r = (num >> 16) & 255;
-  const g = (num >> 8) & 255;
-  const b = num & 255;
-  return `rgb(${r}, ${g}, ${b})`;
-};
-
-const hexToHsl = (hex) => {
-  const rgb = hexToRgb(hex).match(/\d+/g).map(Number);
-  let [r, g, b] = rgb.map(v => v / 255);
-  const max = Math.max(r, g, b), min = Math.min(r, g, b);
-  let h, s, l = (max + min) / 2;
-
-  if (max === min) h = s = 0;
-  else {
-    const d = max - min;
-    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-    switch (max) {
-      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-      case g: h = (b - r) / d + 2; break;
-      case b: h = (r - g) / d + 4; break;
-      default: break;
-    }
-    h *= 60;
-  }
-  return `hsl(${Math.round(h)}, ${Math.round(s*100)}%, ${Math.round(l*100)}%)`;
-};
-
-const ExportOptions = ({ palette }) => {
+const ExportOptions = ({ savedPalettes }) => {
   const [message, setMessage] = useState('');
 
-  const copyToClipboard = () => {
-    if (!palette.length) return;
-    const textToCopy = palette.map(hex => 
-      `${hex} | ${hexToRgb(hex)} | ${hexToHsl(hex)}`
-    ).join('\n');
-    navigator.clipboard.writeText(textToCopy).then(() => {
-      setMessage('Palette copied!');
-      setTimeout(() => setMessage(''), 2000);
-    });
+  // Helper – turn a single palette into a string of hex codes (one per line)
+  const paletteToString = (palette) => palette.join('\n');
+
+  // Build the full export text
+  const buildExportText = () => {
+    if (savedPalettes.length === 0) return null;
+
+    return savedPalettes
+      .map((palette, i) => {
+        const header = `palette ${i + 1}`;
+        const colors = paletteToString(palette);
+        return `${header}\n${colors}`;
+      })
+      .join('\n\n'); // two new-lines between palettes
   };
 
-  const downloadAsTxt = () => {
-    if (!palette.length) return;
-    const textToDownload = palette.map(hex => 
-      `${hex} | ${hexToRgb(hex)} | ${hexToHsl(hex)}`
-    ).join('\n');
-    const blob = new Blob([textToDownload], { type: 'text/plain' });
+  // ---------- COPY TO CLIPBOARD ----------
+  const handleCopy = async () => {
+    if (savedPalettes.length === 0) {
+      alert('No saved palettes to export.');
+      return;
+    }
+
+    const text = buildExportText();
+    try {
+      await navigator.clipboard.writeText(text);
+      setMessage('All palettes copied to clipboard!');
+    } catch (err) {
+      console.error(err);
+      setMessage('Copy failed – try again.');
+    }
+    setTimeout(() => setMessage(''), 2500);
+  };
+
+  // ---------- DOWNLOAD AS .txt ----------
+  const handleDownload = () => {
+    if (savedPalettes.length === 0) {
+      alert('No saved palettes to export.');
+      return;
+    }
+
+    const text = buildExportText();
+    const blob = new Blob([text], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'color-palette.txt';
+    a.download = 'all-color-palettes.txt';
+    document.body.appendChild(a);
     a.click();
+    document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    setMessage('Palette downloaded!');
-    setTimeout(() => setMessage(''), 2000);
+
+    setMessage('All palettes downloaded!');
+    setTimeout(() => setMessage(''), 2500);
   };
 
   return (
     <div className="export-options">
-      <button onClick={copyToClipboard}>Copy to Clipboard</button>
-      <button onClick={downloadAsTxt}>Download as .txt</button>
-      {message && <span style={{ marginLeft: '1rem', color: 'green' }}>{message}</span>}
+      <button onClick={handleCopy}>Copy All Palettes</button>
+      <button onClick={handleDownload}>Download All as .txt</button>
+
+      {message && (
+        <span style={{ marginLeft: '1rem', color: 'green', fontWeight: 500 }}>
+          {message}
+        </span>
+      )}
     </div>
   );
 };

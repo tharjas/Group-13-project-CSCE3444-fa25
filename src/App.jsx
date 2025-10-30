@@ -100,7 +100,7 @@ function App() {
             <UIMockups palette={showUIMockups} onClose={() => setShowUIMockups(null)} />
           )}
 
-          <ExportOptions palette={palette} />
+          <ExportOptions savedPalettes={savedPalettes} />
         </div>
       </main>
 
