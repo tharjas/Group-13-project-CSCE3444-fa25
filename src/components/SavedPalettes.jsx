@@ -4,27 +4,29 @@ const SavedPalettes = ({ palettes, removePalette, setSelectedPaletteForSimulatio
   return (
     <div className="saved-palettes-manager">
       <h2>Saved Palettes</h2>
-      <ul className="saved-palettes-list">
+      <div className="saved-palettes-list">
         {palettes.map((palette, paletteIndex) => (
-          <li key={paletteIndex} className="saved-palette-item">
+          <div key={paletteIndex} className="saved-palette-item">
             <h3>Palette {paletteIndex + 1}</h3>
-            <ul className="palette-list">
+            <div className="palette-list">
               {palette.map((color, colorIndex) => (
-                <li key={colorIndex} className="palette-item">
+                <div key={colorIndex} className="palette-item">
                   <div 
                     className="palette-color-preview"
                     style={{ backgroundColor: color }}
                   ></div>
                   <span>{color}</span>
-                </li>
+                </div>
               ))}
-            </ul>
-            <button onClick={() => setSelectedPaletteForSimulation(palette)}>Simulate Color Blindness</button>
-            <button onClick={() => setShowUIMockups(palette)}>Preview UI Mockups</button>
-            <button onClick={() => removePalette(paletteIndex)}>Remove Palette</button>
-          </li>
+            </div>
+            <div className="saved-palette-actions">
+              <button onClick={() => setSelectedPaletteForSimulation(palette)}>Simulate Color Blindness</button>
+              <button onClick={() => setShowUIMockups(palette)}>Preview UI Mockups</button>
+              <button onClick={() => removePalette(paletteIndex)}>Remove Palette</button>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

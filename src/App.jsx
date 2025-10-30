@@ -29,7 +29,7 @@ function App() {
   }, [savedPalettes]);
 
   useEffect(() => {
-    document.documentElement.classList.toggle('dark-mode', isDark);
+    document.body.classList.toggle('dark-mode', isDark);
   }, [isDark]);
 
   const addColorToPalette = () => {
@@ -59,9 +59,9 @@ function App() {
     <>
       <LeftMenu color={color} setColor={setColor} isDark={isDark} toggleDark={setIsDark} />
 
-      <main className="main-content" style={{ background: isDark ? '#111' : '#f0f0f0' }}>
+      <main className="main-content">
         <div className="app-container">
-          <h1>ColorVision Picker</h1>
+          <h1>ClearColor Picker</h1>
 
           <ColorWheel color={color} setColor={setColor} />
           <ColorInputs color={color} setColor={setColor} />

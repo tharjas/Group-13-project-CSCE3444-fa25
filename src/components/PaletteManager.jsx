@@ -12,7 +12,7 @@ const PaletteManager = ({ palette, removeColor }) => {
               style={{ backgroundColor: color }}
             ></div>
             <span>{color}</span>
-            <button onClick={() => removeColor(index)}>X</button>
+            <button onClick={() => removeColor(index)} className="remove-color-btn">X</button>
           </li>
         ))}
       </ul>
