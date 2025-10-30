@@ -2,6 +2,8 @@
 
 **Team Name:** CodeXIII
 
+**Deployment:** [clearcolor.vercel.app/](https://clearcolor.vercel.app/)
+
 **Project Idea:**  A web-based color picker and palette generator that helps designers, developers, and hobbyists pick appealing and accessible color schemes.  
 
 **Team Members:**  
