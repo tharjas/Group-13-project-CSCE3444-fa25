@@ -437,21 +437,6 @@ button:disabled {
     cursor: pointer;
 }
 
-.remove-favorite-btn {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    border: none;
-    background: var(--surface-light);
-    color: var(--text-light);
-    cursor: pointer;
-    font-size: 12px;
-    line-height: 20px;
-    box-shadow: 0 0 0 1px rgba(0,0,0,0.08);
-}
 
 .dark-mode .remove-favorite-btn {
 
@@ -507,10 +492,6 @@ button:disabled {
 
 }
 
-
-
-
-
 @media (max-width: 1200px) {
   .main-content {
     margin-left: 200px;
@@ -535,4 +516,114 @@ button:disabled {
     min-height: 100vh;
     box-shadow: none;
   }
+}
+
+.favorites-container {
+  margin-top: 2.5rem;
+  padding: 1.5rem;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  background: var(--bg-light);
+}
+
+.dark-mode .favorites-container {
+  border: 1px solid var(--border-dark);
+  background: var(--bg-dark);
+}
+
+.favorites-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.favorites-title {
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.add-favorite-btn {
+  padding: 0.625rem 1.25rem;
+  font-size: 0.875rem;
+}
+
+.favorites-empty {
+  color: #9ca3af;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.dark-mode .favorites-empty {
+  color: #94a3b8;
+}
+
+.favorites-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.favorite-swatch-wrap {
+  position: relative;
+}
+
+.favorite-swatch {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: var(--transition);
+  border: 1px solid var(--border-light);
+}
+
+.favorite-swatch:hover {
+  transform: scale(1.1);
+}
+
+.dark-mode .favorite-swatch {
+  border: 1px solid var(--border-dark);
+}
+
+.remove-favorite-btn {
+  position: absolute;
+  top: -10px;
+  right: -5px;
+
+/* this doesnt seem to be fixing the button */
+  width: 24px !important;
+  height: 24px !important;
+  border-radius: 50%;
+
+  border: none;
+  background: var(--surface-light);
+  color: var(--text-light);
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  transition: background var(--transition), color var(--transition);
+  z-index: 1;
+  
+  /* this fixed it */
+  display: flex;
+  font-size: 0.875rem; 
+  line-height: 1;
+  padding: 0; 
+  box-sizing: border-box; 
+  overflow: hidden; 
+
+  cursor: pointer;
+  box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05));
+  transition: background 0.3s ease, color 0.3s ease;
+  z-index: 1; 
+}
+
+.dark-mode .remove-favorite-btn {
+  background: var(--surface-dark);
+  color: var(--text-dark);
+}
+.dark-mode .remove-favorite-btn:hover {
+  background: var(--accent-dark);
+  color: #fff;
 }
