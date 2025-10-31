@@ -38,14 +38,17 @@ const LeftMenu = ({ color, setColor, isDark, toggleDark }) => {
       <h3>Color Tools</h3>
 
       <div className="menu-section">
-        <label>
-          <input
-            type="checkbox"
-            checked={localDark}
-            onChange={handleToggle}
-          />
-          Dark mode
-        </label>
+        <div className="toggle-switch">
+          <label>
+            <input
+              type="checkbox"
+              checked={localDark}
+              onChange={handleToggle}
+            />
+            <span className="slider"></span>
+          </label>
+          <span>Dark mode</span>
+        </div>
       </div>
 
       <div className="menu-section">
