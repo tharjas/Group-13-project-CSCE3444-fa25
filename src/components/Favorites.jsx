@@ -37,6 +37,13 @@ export default function Favorites({ currentColor, onSelectFavorite }) {
   const removeFavorite = (hex) => {
     setFavorites((prev) => prev.filter((f) => normalize(f) !== normalize(hex)));
   };
+  const clearAllFavorites = () => {
+  if (favorites.length === 0) return;
+  if (window.confirm("Are you sure you want to clear all favorite colors?")) {
+    setFavorites([]);
+  }
+};
+
 
   const handleSelect = (hex) => {
     if (onSelectFavorite) onSelectFavorite(hex);
@@ -54,6 +61,16 @@ export default function Favorites({ currentColor, onSelectFavorite }) {
         >
           Add Current Color
         </button>
+
+        <button
+        className="add-favorite-btn"
+        onClick={clearAllFavorites}
+        disabled={favorites.length === 0}
+        title="Clear all favorite colors"
+        >
+        Clear All Favorites
+        </button>
+
       </div>
 
       {favorites.length === 0 ? (

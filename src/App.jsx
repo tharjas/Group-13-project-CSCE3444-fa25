@@ -4,10 +4,10 @@ import ColorWheel from './components/ColorWheel';
 import ColorInputs from './components/ColorInputs';
 import PaletteManager from './components/PaletteManager';
 import ExportOptions from './components/ExportOptions';
+import Favorites from './components/Favorites';
 import SavedPalettes from './components/SavedPalettes';
 import ColorBlindnessSimulator from './components/ColorBlindnessSimulator';
 import UIMockups from './components/UIMockups';
-import Favorites from './components/Favorites';
 import LeftMenu from './components/LeftMenu';
 import RightMenu from './components/RightMenu';
 
