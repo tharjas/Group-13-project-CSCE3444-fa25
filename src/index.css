@@ -698,3 +698,137 @@ input:checked + .slider:before {
   transform: translateX(22px);
 
 }
+
+/* Contrast Checker Modal */
+.modal-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+  padding: 1rem;
+}
+
+.contrast-modal {
+  background: var(--surface-light);
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: var(--shadow);
+}
+
+.dark-mode .contrast-modal {
+  background: var(--surface-dark);
+  box-shadow: var(--shadow-dark);
+}
+
+.close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: var(--text-light);
+}
+
+.dark-mode .close-btn {
+  color: var(--text-dark);
+}
+
+.text-size-toggle {
+  text-align: center;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+}
+
+.contrast-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.95rem;
+}
+
+.contrast-table th,
+.contrast-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.dark-mode .contrast-table th,
+.dark-mode .contrast-table td {
+  border-bottom: 1px solid var(--border-dark);
+}
+
+.contrast-table th {
+  background: rgba(0, 0, 0, 0.05);
+  font-weight: 600;
+}
+
+.swatch {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+  border: 1px solid var(--border-light);
+}
+
+.dark-mode .swatch {
+  border: 1px solid var(--border-dark);
+}
+
+.badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.badge-aaa { background: #28a745; color: white; }
+.badge-aa  { background: #ffc107; color: #212529; }
+.badge-fail { background: #dc3545; color: white; }
+
+/* Destructive button styling (delete/remove xyz) */
+.destructive-btn {
+  background-color: #dc3545; 
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 0.9rem;
+}
+
+.destructive-btn:hover {
+  background-color: #c82333; 
+}
+
+.destructive-btn:disabled {
+  background-color: #f8d7da;
+  color: #721c24;
+  cursor: not-allowed;
+}
+
+.dark-mode .destructive-btn {
+  background-color: #c82333;
+}
+
+.dark-mode .destructive-btn:hover {
+  background-color: #bd2130;
+}
+
+.dark-mode .destructive-btn:disabled {
+  background-color: #721c24;
+  color: #f8d7da;
+}

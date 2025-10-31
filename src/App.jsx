@@ -8,6 +8,7 @@ import Favorites from './components/Favorites';
 import SavedPalettes from './components/SavedPalettes';
 import ColorBlindnessSimulator from './components/ColorBlindnessSimulator';
 import UIMockups from './components/UIMockups';
+import ContrastChecker from './components/ContrastChecker';
 import LeftMenu from './components/LeftMenu';
 import RightMenu from './components/RightMenu';
 
@@ -17,6 +18,7 @@ function App() {
   const [savedPalettes, setSavedPalettes] = useState([]);
   const [selectedPaletteForSimulation, setSelectedPaletteForSimulation] = useState(null);
   const [showUIMockups, setShowUIMockups] = useState(null);
+  const [showContrastChecker, setShowContrastChecker] = useState(null);
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
@@ -82,13 +84,16 @@ function App() {
             Save Palette (requires exactly 5 colors)
           </button>
 
+          {/* Pass setShowContrastChecker to SavedPalettes */}
           <SavedPalettes
             palettes={savedPalettes}
             removePalette={removeSavedPalette}
             setSelectedPaletteForSimulation={setSelectedPaletteForSimulation}
             setShowUIMockups={setShowUIMockups}
+            setShowContrastChecker={setShowContrastChecker}
           />
 
+          {/* Modals */}
           {selectedPaletteForSimulation && (
             <ColorBlindnessSimulator
               palette={selectedPaletteForSimulation}
@@ -98,6 +103,13 @@ function App() {
 
           {showUIMockups && (
             <UIMockups palette={showUIMockups} onClose={() => setShowUIMockups(null)} />
+          )}
+
+          {showContrastChecker && (
+            <ContrastChecker
+              palette={showContrastChecker}
+              onClose={() => setShowContrastChecker(null)}
+            />
           )}
 
           <ExportOptions savedPalettes={savedPalettes} />

@@ -1,6 +1,13 @@
+// src/components/SavedPalettes.jsx
 import React from 'react';
 
-const SavedPalettes = ({ palettes, removePalette, setSelectedPaletteForSimulation, setShowUIMockups }) => {
+const SavedPalettes = ({
+  palettes,
+  removePalette,
+  setSelectedPaletteForSimulation,
+  setShowUIMockups,
+  setShowContrastChecker  // NEW
+}) => {
   return (
     <div className="saved-palettes-manager">
       <h2>Saved Palettes</h2>
@@ -20,9 +27,21 @@ const SavedPalettes = ({ palettes, removePalette, setSelectedPaletteForSimulatio
               ))}
             </div>
             <div className="saved-palette-actions">
-              <button onClick={() => setSelectedPaletteForSimulation(palette)}>Simulate Color Blindness</button>
-              <button onClick={() => setShowUIMockups(palette)}>Preview UI Mockups</button>
-              <button onClick={() => removePalette(paletteIndex)}>Remove Palette</button>
+              <button onClick={() => setSelectedPaletteForSimulation(palette)}>
+                Simulate Color Blindness
+              </button>
+              <button onClick={() => setShowUIMockups(palette)}>
+                Preview UI Mockups
+              </button>
+              <button onClick={() => setShowContrastChecker(palette)}>
+                Check WCAG Contrast
+              </button>
+              <button 
+			  className="destructive-btn"  // ← Added
+			  onClick={() => removePalette(paletteIndex)}
+			>
+			  Remove Palette
+			</button>
             </div>
           </div>
         ))}

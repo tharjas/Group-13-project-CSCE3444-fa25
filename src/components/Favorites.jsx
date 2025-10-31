@@ -63,13 +63,13 @@ export default function Favorites({ currentColor, onSelectFavorite }) {
         </button>
 
         <button
-        className="add-favorite-btn"
-        onClick={clearAllFavorites}
-        disabled={favorites.length === 0}
-        title="Clear all favorite colors"
-        >
-        Clear All Favorites
-        </button>
+		  className={favorites.length === 0 ? "add-favorite-btn" : "destructive-btn"}
+		  onClick={clearAllFavorites}
+		  disabled={favorites.length === 0}
+		  title="Clear all favorite colors"
+		>
+		  Clear All Favorites
+		</button>
 
       </div>
 
