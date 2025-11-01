@@ -44,12 +44,17 @@ const LeftMenu = ({ color, setColor, isDark, toggleDark }) => {
 			  type="checkbox"
 			  checked={localDark}
 			  onChange={handleToggle}
-			  aria-label="Toggle dark mode"
+			  aria-labelledby="darkModeLabel"
 			/>
 			<span className="slider"></span>
+
+			{/* Screen-reader only label text */}
+			<span id="darkModeLabel" className="sr-only">Toggle dark mode</span>
 		  </label>
+
 		  <span>Dark mode</span>
 		</div>
+
       </div>
 
       <div className="menu-section">
