@@ -10,7 +10,7 @@
   --surface-dark: #1e1e1e;
   --text-light: #212529;
   --text-dark: #e9ecef;
-  --primary-light: #007bff;
+  --primary-light: #004A99;
   --primary-dark: #0d6efd;
   --border-light: #dee2e6;
   --border-dark: #343a40;
@@ -407,15 +407,6 @@ button:disabled {
     font-size: 0.875rem;
 }
 
-.favorites-empty {
-    color: #6c757d;
-    font-size: 0.875rem;
-}
-
-.dark-mode .favorites-empty {
-    color: #adb5bd;
-}
-
 .favorites-swatches {
     display: flex;
     gap: 0.75rem;
@@ -549,7 +540,7 @@ button:disabled {
 }
 
 .favorites-empty {
-  color: #9ca3af;
+  color: #4B555D;
   font-size: 0.875rem;
   text-align: center;
 }

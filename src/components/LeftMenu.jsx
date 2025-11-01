@@ -39,16 +39,17 @@ const LeftMenu = ({ color, setColor, isDark, toggleDark }) => {
 
       <div className="menu-section">
         <div className="toggle-switch">
-          <label>
-            <input
-              type="checkbox"
-              checked={localDark}
-              onChange={handleToggle}
-            />
-            <span className="slider"></span>
-          </label>
-          <span>Dark mode</span>
-        </div>
+		  <label>
+			<input
+			  type="checkbox"
+			  checked={localDark}
+			  onChange={handleToggle}
+			  aria-label="Toggle dark mode"
+			/>
+			<span className="slider"></span>
+		  </label>
+		  <span>Dark mode</span>
+		</div>
       </div>
 
       <div className="menu-section">
