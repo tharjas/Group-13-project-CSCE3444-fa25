@@ -1,4 +1,6 @@
-// src/App.jsx
+// FIXED: src/App.jsx
+// Added onBack to ALL full-page view renders
+
 import React, { useState, useEffect } from 'react';
 import ColorWheel from './components/ColorWheel';
 import ColorInputs from './components/ColorInputs';
@@ -9,6 +11,9 @@ import SavedPalettes from './components/SavedPalettes';
 import ColorBlindnessSimulator from './components/ColorBlindnessSimulator';
 import UIMockups from './components/UIMockups';
 import ContrastChecker from './components/ContrastChecker';
+import ColorMixingLab from './components/ColorMixingLab';
+import ColorSchemeInfo from './components/ColorSchemeInfo';
+import LiveContrastViewer from './components/LiveContrastViewer';
 import LeftMenu from './components/LeftMenu';
 import RightMenu from './components/RightMenu';
 
@@ -20,6 +25,9 @@ function App() {
   const [showUIMockups, setShowUIMockups] = useState(null);
   const [showContrastChecker, setShowContrastChecker] = useState(null);
   const [isDark, setIsDark] = useState(false);
+
+  const [activeView, setActiveView] = useState('picker');
+  const [viewProps, setViewProps] = useState({});
 
   useEffect(() => {
     const stored = localStorage.getItem('savedPalettes');
@@ -57,9 +65,33 @@ function App() {
 
   const handleFavoriteSelect = (hex) => setColor(hex);
 
+  const handleBack = () => {
+    setActiveView('picker');
+    setViewProps({});
+  };
+
+  // === FULL-PAGE VIEWS WITH onBack ===
+  if (activeView === 'mixing-lab') {
+    return <ColorMixingLab {...viewProps} onBack={handleBack} isDark={isDark} />;
+  }
+  if (activeView === 'scheme-info') {
+    return <ColorSchemeInfo {...viewProps} onBack={handleBack} isDark={isDark} />;
+  }
+  if (activeView === 'contrast-viewer') {
+    return <LiveContrastViewer onBack={handleBack} isDark={isDark} />;
+  }
+
+  // === MAIN PICKER VIEW ===
   return (
     <>
-      <LeftMenu color={color} setColor={setColor} isDark={isDark} toggleDark={setIsDark} />
+      <LeftMenu
+        color={color}
+        setColor={setColor}
+        isDark={isDark}
+        toggleDark={setIsDark}
+        setActiveView={setActiveView}
+        setViewProps={setViewProps}
+      />
 
       <main className="main-content">
         <div className="app-container">
@@ -84,7 +116,6 @@ function App() {
             Save Palette (requires exactly 5 colors)
           </button>
 
-          {/* Pass setShowContrastChecker to SavedPalettes */}
           <SavedPalettes
             palettes={savedPalettes}
             removePalette={removeSavedPalette}
@@ -93,18 +124,18 @@ function App() {
             setShowContrastChecker={setShowContrastChecker}
           />
 
-          {/* Modals */}
           {selectedPaletteForSimulation && (
             <ColorBlindnessSimulator
               palette={selectedPaletteForSimulation}
               onClose={() => setSelectedPaletteForSimulation(null)}
             />
           )}
-
           {showUIMockups && (
-            <UIMockups palette={showUIMockups} onClose={() => setShowUIMockups(null)} />
+            <UIMockups
+              palette={showUIMockups}
+              onClose={() => setShowUIMockups(null)}
+            />
           )}
-
           {showContrastChecker && (
             <ContrastChecker
               palette={showContrastChecker}
