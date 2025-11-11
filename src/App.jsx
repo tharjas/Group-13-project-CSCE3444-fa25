@@ -1,5 +1,3 @@
-// FIXED: src/App.jsx
-// Added onBack to ALL full-page view renders
 
 import React, { useState, useEffect } from 'react';
 import ColorWheel from './components/ColorWheel';
@@ -16,6 +14,8 @@ import ColorSchemeInfo from './components/ColorSchemeInfo';
 import LiveContrastViewer from './components/LiveContrastViewer';
 import LeftMenu from './components/LeftMenu';
 import RightMenu from './components/RightMenu';
+import AdditiveColorChallenge from './components/colorChallenge/AdditiveColorChallenge';
+import AccessibilityViewer from './components/Accessibility/AccessibilityViewer';
 
 function App() {
   const [color, setColor] = useState('#ffffff');
@@ -24,6 +24,7 @@ function App() {
   const [selectedPaletteForSimulation, setSelectedPaletteForSimulation] = useState(null);
   const [showUIMockups, setShowUIMockups] = useState(null);
   const [showContrastChecker, setShowContrastChecker] = useState(null);
+  const [showAccessibilityViewer, setShowAccessibilityViewer] = useState(null);
   const [isDark, setIsDark] = useState(false);
 
   const [activeView, setActiveView] = useState('picker');
@@ -70,7 +71,7 @@ function App() {
     setViewProps({});
   };
 
-  // === FULL-PAGE VIEWS WITH onBack ===
+  // === FULL-PAGE VIEWS ===
   if (activeView === 'mixing-lab') {
     return <ColorMixingLab {...viewProps} onBack={handleBack} isDark={isDark} />;
   }
@@ -79,6 +80,9 @@ function App() {
   }
   if (activeView === 'contrast-viewer') {
     return <LiveContrastViewer onBack={handleBack} isDark={isDark} />;
+  }
+  if (activeView === 'additive-challenge') {
+    return <AdditiveColorChallenge {...viewProps} onBack={handleBack} isDark={isDark} />;
   }
 
   // === MAIN PICKER VIEW ===
@@ -122,8 +126,10 @@ function App() {
             setSelectedPaletteForSimulation={setSelectedPaletteForSimulation}
             setShowUIMockups={setShowUIMockups}
             setShowContrastChecker={setShowContrastChecker}
+            setShowAccessibilityViewer={setShowAccessibilityViewer} // ← Passed down
           />
 
+          {/* Modals */}
           {selectedPaletteForSimulation && (
             <ColorBlindnessSimulator
               palette={selectedPaletteForSimulation}
@@ -140,6 +146,12 @@ function App() {
             <ContrastChecker
               palette={showContrastChecker}
               onClose={() => setShowContrastChecker(null)}
+            />
+          )}
+          {showAccessibilityViewer && (
+            <AccessibilityViewer
+              palette={showAccessibilityViewer}
+              onClose={() => setShowAccessibilityViewer(null)}
             />
           )}
 

@@ -6,7 +6,8 @@ const SavedPalettes = ({
   removePalette,
   setSelectedPaletteForSimulation,
   setShowUIMockups,
-  setShowContrastChecker  // NEW
+  setShowContrastChecker,
+  setShowAccessibilityViewer 
 }) => {
   return (
     <div className="saved-palettes-manager">
@@ -36,12 +37,15 @@ const SavedPalettes = ({
               <button onClick={() => setShowContrastChecker(palette)}>
                 Check WCAG Contrast
               </button>
+              <button onClick={() => setShowAccessibilityViewer(palette)}>
+                Accessibility Check
+              </button>
               <button 
-			  className="destructive-btn"  // ← Added
-			  onClick={() => removePalette(paletteIndex)}
-			>
-			  Remove Palette
-			</button>
+                className="destructive-btn"
+                onClick={() => removePalette(paletteIndex)}
+              >
+                Remove Palette
+              </button>
             </div>
           </div>
         ))}

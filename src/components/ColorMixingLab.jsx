@@ -57,23 +57,6 @@ const hexToHsl = (hex) => {
   return { h: Math.round(h), s: Math.round(s * 100), l: Math.round(l * 100) };
 };
 
-const hslToHex = (h, s, l) => {
-  h = h % 360;
-  s = Math.max(0, Math.min(100, s)) / 100;
-  l = Math.max(0, Math.min(100, l)) / 100;
-  let c = (1 - Math.abs(2 * l - 1)) * s;
-  let x = c * (1 - Math.abs((h / 60) % 2 - 1));
-  let m = l - c / 2;
-  let r = 0, g = 0, b = 0;
-  if (0 <= h && h < 60) [r, g, b] = [c, x, 0];
-  else if (60 <= h && h < 120) [r, g, b] = [x, c, 0];
-  else if (120 <= h && h < 180) [r, g, b] = [0, c, x];
-  else if (180 <= h && h < 240) [r, g, b] = [0, x, c];
-  else if (240 <= h && h < 300) [r, g, b] = [x, 0, c];
-  else [r, g, b] = [c, 0, x];
-  return rgbToHex((r + m) * 255, (g + m) * 255, (b + m) * 255);
-};
-
 const mixColors = (colorsWithRatios) => {
   if (!colorsWithRatios.length) return '#FFFFFF';
   const totalRatio = colorsWithRatios.reduce((sum, [, ratio]) => sum + (ratio || 0), 0);
@@ -114,6 +97,7 @@ const ColorMixingLab = ({
   const [showCustomPicker, setShowCustomPicker] = useState(false);
   const [customColor, setCustomColor] = useState('#FFFFFF');
   const [displayMode, setDisplayMode] = useState('HEX');
+  const [copyStatus, setCopyStatus] = useState('');
 
   // Keep colors synced if initialColor changes
   useEffect(() => {
@@ -150,6 +134,18 @@ const ColorMixingLab = ({
     return `${((ratio / totalRatio) * 100).toFixed(1)}%`;
   };
 
+  const copyToClipboard = async () => {
+    const text = formatColor(mixedColor, displayMode);
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopyStatus('Copied!');
+      setTimeout(() => setCopyStatus(''), 2000);
+    } catch (err) {
+      setCopyStatus('Failed to copy');
+      setTimeout(() => setCopyStatus(''), 2000);
+    }
+  };
+
   const useMixed = () => {
     setColor(mixedColor);
     onBack();
@@ -170,16 +166,16 @@ const ColorMixingLab = ({
       <button
         onClick={onBack}
         style={{
-          position: 'fixed', // Changed to fixed for persistence on scroll
+          position: 'fixed',
           top: '1rem',
           left: '1rem',
           padding: '0.5rem 1rem',
-          background: '#044997', // Changed to blue for better contrast with white text
+          background: '#044997',
           color: 'white',
           border: 'none',
           borderRadius: '6px',
           cursor: 'pointer',
-          zIndex: 1000 // Ensure it's on top
+          zIndex: 1000
         }}
       >
         Back to Picker
@@ -216,7 +212,7 @@ const ColorMixingLab = ({
             )}
           </div>
 
-          {/* Bright Presets - New Section */}
+          {/* Bright Presets */}
           <div>
             <h3>Bright Presets</h3>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1rem' }}>
@@ -294,8 +290,8 @@ const ColorMixingLab = ({
             {formatColor(mixedColor, displayMode)}
           </code>
 
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', marginBottom: '1.5rem' }}>
-            {['HEX','RGB','HSL'].map(m => (
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
+            {['HEX', 'RGB', 'HSL'].map(m => (
               <button key={m} onClick={() => setDisplayMode(m)} style={{
                 padding: '0.4rem 0.8rem',
                 background: displayMode === m ? '#044997' : 'transparent',
@@ -305,7 +301,22 @@ const ColorMixingLab = ({
                 fontSize: '0.9rem'
               }}>{m}</button>
             ))}
+            <button onClick={copyToClipboard} style={{
+              padding: '0.4rem 0.8rem',
+              background: '#6c757d',
+              color: 'white',
+              border: '1px solid #6c757d',
+              borderRadius: '4px',
+              fontSize: '0.9rem'
+            }}>
+              📋 Copy
+            </button>
           </div>
+          {copyStatus && (
+            <p style={{ color: copyStatus.includes('Copied') ? '#28a745' : '#dc3545', fontSize: '0.9rem' }}>
+              {copyStatus}
+            </p>
+          )}
 
           <button onClick={useMixed} disabled={colors.length === 0} style={{
             padding: '0.75rem 1.5rem',
