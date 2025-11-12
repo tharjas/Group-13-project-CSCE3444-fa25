@@ -1,8 +1,11 @@
 // src/components/ColorMixingLab.jsx
-// Improved version: Added bright preset colors section inspired by colordesigner.io
-// Presets are bright, saturated primary and secondary colors for easy mixing
-// Safe version: never white screens, default props, dark/light support
-// FIXED: Back button now persistent (fixed position) and better contrast (blue bg, white text)
+/*F13 Color Mixing Tool
+● Building the Color Mixer component with RGB and HSL blending sliders.
+● Implementing color interpolation algorithms and preview updates.
+● Adding export options for hex/RGB values.
+
+*/
+
 
 import React, { useState, useEffect } from 'react';
 import ColorWheel from './ColorWheel';

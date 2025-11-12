@@ -1,4 +1,11 @@
 // src/components/AccessibilityViewer.jsx
+
+
+/*This feature Feature Description:
+● Implementing contrast checker for WCAG AA/AAA compliance testing.
+● Developing grayscale simulation for accessibility preview.
+● Adding text preview functionality to show readability differences. */
+
 import React from 'react';
 
 const hexToRgb = (hex) => {

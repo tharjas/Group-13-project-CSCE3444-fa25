@@ -1,4 +1,9 @@
 // src/components/colorChallenge/AdditiveColorChallenge.jsx
+
+/*
+This feature includes a challenge for mixing colors to obtain another color
+
+*/ 
 import React, { useState, useEffect } from 'react';
 
 const hexToRgb = (hex) => {
