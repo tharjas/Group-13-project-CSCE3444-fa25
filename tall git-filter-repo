@@ -1,0 +1,36 @@
+[33m5c8000e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m feat: complete F11 (Additive Challenges), F12 (Accessibility Viewer), F13 (Color Mixing Lab with clipboard export)
+[33md830c80[m verify new commit
+[33m51bddbf[m chore: ignore node_modules
+[33mb740705[m feat: complete F11 (Additive Challenges), F12 (Accessibility Viewer), F13 (Color Mixing Lab with clipboard export)
+[33m314017a[m Three new features on the left: Color mixing lab, info on different color schemes on the color wheel, and finally a background/text color contrast checker.
+[33m0eddf59[m Testing empty label for wave, potential fix.
+[33m8b5292f[m Wav report fixes for assignment.
+[33mc3e87d5[m Forgot to add contrast checker to previous commit.
+[33mb8b8b41[m WCAG contrast checking ratio pop-up button. Destructive buttons (anything involving deletion) are now red to read better to a user.
+[33m874740b[m Dark mode toggle switch instead of a check-box, more modern.
+[33m3b17c38[m Just making areas in the middle container a bit more separated to stand out more.
+[33me8db3f4[m Trigger Vercel re-deploy.
+[33m7d85847[m Trigger Vercel re-deploy.
+[33m31087c5[m[33m ([m[1;31morigin/rathnakarbranch[m[33m)[m Added Clear All Favorites button and updated App.jsx + improved .gitignore
+[33m30c985c[m Fixed exports to work properly and made it a little clearer what it actually does (Export all palettes vs. the previous export palette).
+[33mdded647[m Purely aesthetic changes via css and html for the most part, changing the overall look to be less grayscale.
+[33m709a1f9[m Update README.md
+[33m6b0c066[m more accurate CVD matrices for color blindness.
+[33m3380a67[m Added left and right side panels. Left contains dark mode, analogous/complementary colors and info (might edit info portion later), right holds preset palettes (sortable).
+[33m6f3572d[m Strengthened up UIMockups, guaranteed good contrast in color picking logic.
+[33m6024937[m Fixed small issue that broke the add to palette button, all else should be fine.
+[33m48833df[m Just helping the favorites system to show up.
+[33mc4e68be[m Favorites.jsx
+[33mcbbc1e1[m Deployment progress, pushing distribution.
+[33mfa05a75[m Added UI mockup previews, grabbing the palette to display an example website.
+[33m58f51eb[m Allowed for hex, hsl, and rgb conversions
+[33m0610b76[m Color blindness simulation file.
+[33mc2a35fb[m Lots of quality updates - color blindness simulation, live preview of colors added via hex, fixed a couple bugs in regards to layout updates.
+[33mfb88470[m Added the ability to save a 5-color palette.
+[33m1e5af4f[m Color wheel updated
+[33m3641037[m now added a color previewer, for when you select colors.
+[33md946ac3[m Fixed the colorwheel - added darkness.
+[33m6a0bfa5[m Merge branch 'main' of https://github.com/tharjas/Group-13-project-CSCE3444-fa25 my local branch was master but i needed main
+[33m9858e46[m Adding gemini CLI prototype as explained in class
+[33m4a99de4[m Update README.md
+[33ma8d2193[m Initial commit
