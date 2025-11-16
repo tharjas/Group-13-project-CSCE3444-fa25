@@ -1,5 +1,5 @@
 // src/components/ColorDecomposition/ColorDecomposition.jsx
-
+//Created Color Decomposition component to generate tints, shades, and tones of a given color
 import React, { useEffect, useState } from 'react';
 
 const hexToHsl = (hex) => {

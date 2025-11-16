@@ -1,5 +1,6 @@
 import React from 'react';
 
+// Created PaletteManager component to manage and display the current color palette
 const PaletteManager = ({ palette, removeColor }) => {
   return (
     <div className="palette-manager">
@@ -14,6 +15,7 @@ const PaletteManager = ({ palette, removeColor }) => {
     cursor: 'default'
   }}
   title={color} // ← F16: Shows HEX on hover (native browser tooltip)
+  // // Tooltip library can be used for more advanced tooltips
 ></div>
             <span>{color}</span>
             <button onClick={() => removeColor(index)} className="remove-color-btn">X</button>
