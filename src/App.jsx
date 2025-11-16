@@ -1,4 +1,6 @@
-
+// src/App.jsx
+// Main application component for ClearColor Picker
+// Manages state for current color, palette, saved palettes, and various modals/views
 import React, { useState, useEffect } from 'react';
 import ColorWheel from './components/ColorWheel';
 import ColorInputs from './components/ColorInputs';
