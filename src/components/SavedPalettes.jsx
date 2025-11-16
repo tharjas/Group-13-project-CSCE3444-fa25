@@ -1,5 +1,6 @@
 // src/components/SavedPalettes.jsx
 import React from 'react';
+import ExportButton from './ExportButton';
 
 const SavedPalettes = ({
   palettes,
@@ -12,6 +13,9 @@ const SavedPalettes = ({
   return (
     <div className="saved-palettes-manager">
       <h2>Saved Palettes</h2>
+      <div style={{ marginBottom: '0.5rem' }}>
+        <ExportButton savedPalettes={palettes} />
+      </div>
       <div className="saved-palettes-list">
         {palettes.map((palette, paletteIndex) => (
           <div key={paletteIndex} className="saved-palette-item">
