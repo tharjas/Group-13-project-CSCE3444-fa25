@@ -139,42 +139,87 @@ const ColorInputs = ({ color, setColor }) => {
       setError('Invalid HSL format (e.g., 0, 100%, 50%)');
     }
   };
-
   return (
-    <div className="color-inputs">
-      <div>
-        <label htmlFor="hex">HEX</label>
-        <input
-          type="text"
-          id="hex"
-          value={hexInput}
-          onChange={handleHexChange}
-          placeholder="#FFFFFF"
-        />
-      </div>
-      <div>
-        <label htmlFor="rgb">RGB</label>
-        <input
-          type="text"
-          id="rgb"
-          value={rgbInput}
-          onChange={handleRgbChange}
-          placeholder="255, 0, 0"
-        />
-      </div>
-      <div>
-        <label htmlFor="hsl">HSL</label>
-        <input
-          type="text"
-          id="hsl"
-          value={hslInput}
-          onChange={handleHslChange}
-          placeholder="0, 100%, 50%"
-        />
-      </div>
-      {error && <div style={{ color: 'red', gridColumn: '1 / -1', marginTop: '0.5rem' }}>{error}</div>}
+  <div className="color-inputs">
+    {/* Existing Inputs */}
+    <div>
+      <label htmlFor="hex">HEX</label>
+      <input
+        type="text"
+        id="hex"
+        value={hexInput}
+        onChange={handleHexChange}
+        placeholder="#FFFFFF"
+      />
     </div>
-  );
-};
+    <div>
+      <label htmlFor="rgb">RGB</label>
+      <input
+        type="text"
+        id="rgb"
+        value={rgbInput}
+        onChange={handleRgbChange}
+        placeholder="255, 0, 0"
+      />
+    </div>
+    <div>
+      <label htmlFor="hsl">HSL</label>
+      <input
+        type="text"
+        id="hsl"
+        value={hslInput}
+        onChange={handleHslChange}
+        placeholder="0, 100%, 50%"
+      />
+    </div>
+
+    {/* F15: HEX Code Breakdown */}
+    <div style={{ marginTop: '1rem', padding: '0.5rem', background: 'rgba(0,0,0,0.03)', borderRadius: '6px', fontSize: '0.9rem' }}>
+      <strong>Color Breakdown:</strong><br />
+      HEX: {color}<br />
+      RGB: {hexToRgb(color).r}, {hexToRgb(color).g}, {hexToRgb(color).b}<br />
+      HSL: {hexToHsl(color).h}°, {hexToHsl(color).s}%, {hexToHsl(color).l}%
+    </div>
+
+    {error && <div style={{ color: 'red', gridColumn: '1 / -1', marginTop: '0.5rem' }}>{error}</div>}
+  </div>
+);};
+
+//   return (
+//     <div className="color-inputs">
+//       <div>
+//         <label htmlFor="hex">HEX</label>
+//         <input
+//           type="text"
+//           id="hex"
+//           value={hexInput}
+//           onChange={handleHexChange}
+//           placeholder="#FFFFFF"
+//         />
+//       </div>
+//       <div>
+//         <label htmlFor="rgb">RGB</label>
+//         <input
+//           type="text"
+//           id="rgb"
+//           value={rgbInput}
+//           onChange={handleRgbChange}
+//           placeholder="255, 0, 0"
+//         />
+//       </div>
+//       <div>
+//         <label htmlFor="hsl">HSL</label>
+//         <input
+//           type="text"
+//           id="hsl"
+//           value={hslInput}
+//           onChange={handleHslChange}
+//           placeholder="0, 100%, 50%"
+//         />
+//       </div>
+//       {error && <div style={{ color: 'red', gridColumn: '1 / -1', marginTop: '0.5rem' }}>{error}</div>}
+//     </div>
+//   );
+// };
 
 export default ColorInputs;

@@ -8,9 +8,13 @@ const PaletteManager = ({ palette, removeColor }) => {
         {palette.map((color, index) => (
           <li key={index} className="palette-item">
             <div 
-              className="palette-color-preview"
-              style={{ backgroundColor: color }}
-            ></div>
+  className="palette-color-preview"
+  style={{ 
+    backgroundColor: color,
+    cursor: 'default'
+  }}
+  title={color} // ← F16: Shows HEX on hover (native browser tooltip)
+></div>
             <span>{color}</span>
             <button onClick={() => removeColor(index)} className="remove-color-btn">X</button>
           </li>

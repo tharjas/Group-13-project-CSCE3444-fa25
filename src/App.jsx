@@ -16,6 +16,8 @@ import LeftMenu from './components/LeftMenu';
 import RightMenu from './components/RightMenu';
 import AdditiveColorChallenge from './components/colorChallenge/AdditiveColorChallenge';
 import AccessibilityViewer from './components/Accessibility/AccessibilityViewer';
+import ColorDecomposition from './components/ColorDecomposition/ColorDecomposition.jsx';
+import ColorSchemeWheel from './components/ColorScheme/ColorSchemeWheel.jsx';
 
 function App() {
   const [color, setColor] = useState('#ffffff');
@@ -84,7 +86,17 @@ function App() {
   if (activeView === 'additive-challenge') {
     return <AdditiveColorChallenge {...viewProps} onBack={handleBack} isDark={isDark} />;
   }
-
+  if (activeView === 'scheme-wheel') {
+  return <ColorSchemeWheel {...viewProps} onBack={handleBack} isDark={isDark} />;
+}
+// Enhance addToPalette to accept color
+const addToPalette = (hex) => {
+  if (palette.length >= 5) {
+    alert('Palette is full (5 colors max)');
+    return;
+  }
+  if (!palette.includes(hex)) setPalette([...palette, hex]);
+};
   // === MAIN PICKER VIEW ===
   return (
     <>
@@ -103,6 +115,9 @@ function App() {
 
           <ColorWheel color={color} setColor={setColor} />
           <ColorInputs color={color} setColor={setColor} />
+          <ColorInputs color={color} setColor={setColor} />
+          <ColorInputs color={color} setColor={setColor} />
+          <ColorDecomposition color={color} />
 
           <button onClick={addColorToPalette} className="full-width">
             Add to Palette

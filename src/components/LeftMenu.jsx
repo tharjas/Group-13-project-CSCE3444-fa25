@@ -42,6 +42,10 @@ const LeftMenu = ({ color, setColor, isDark, toggleDark, setActiveView, setViewP
   setViewProps({ initialColor: color, setColor, isDark });
 };
 
+const openSchemeWheel = () => {
+  setActiveView('scheme-wheel');
+  setViewProps({ color, setColor, isDark, addToPalette });
+};
 
   return (
     <aside className="side-menu left-menu">
@@ -173,6 +177,29 @@ const LeftMenu = ({ color, setColor, isDark, toggleDark, setActiveView, setViewP
 >
   🔆
     </button>
+
+    <button
+            onClick={openContrastViewer}
+            title="Color Scheme Wheel"
+            style={{
+              width: '48px',
+              height: '48px',
+              background: '#fff',
+              border: '2px solid #ccc',
+              borderRadius: '8px',
+              fontSize: '1.4rem',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transition: 'all 0.2s'
+            }}
+            onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0,123,255,0.3)')}
+            onMouseLeave={e => (e.currentTarget.style.boxShadow = 'none')}
+          >
+            🌀
+          </button>
+
           
         </div>
       </div>
