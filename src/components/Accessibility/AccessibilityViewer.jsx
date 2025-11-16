@@ -1,8 +1,8 @@
 // src/components/AccessibilityViewer.jsx
-// Created AccessibilityViewer component to preview palette accessibility
-// Shows contrast ratios, grayscale simulation, and text readability
-// based on a 5-color palette (background, primary, secondary, accent, text)
-// Assumes palette is an array of 5 HEX color strings
+// AccessibilityViewer component to preview palette accessibility compliance
+// Checks contrast ratios and simulates grayscale vision
+// Provides visual examples of text readability
+// Expects a palette of exactly 5 colors: [background, primary, secondary, accent, text]
 import React from 'react';
 
 const hexToRgb = (hex) => {
