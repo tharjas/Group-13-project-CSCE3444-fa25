@@ -21,6 +21,7 @@ import AccessibilityViewer from './components/Accessibility/AccessibilityViewer'
 import ColorDecomposition from './components/ColorDecomposition/ColorDecomposition.jsx';
 import ColorSchemeWheel from './components/ColorScheme/ColorSchemeWheel.jsx';
 
+
 function App() {
   const [color, setColor] = useState('#ffffff');
   const [palette, setPalette] = useState([]);

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 // Helper functions for color conversions
+// Hex to RGB
+//Toggle Between Color Models
 const hexToRgb = (hex) => {
   hex = hex.replace(/^#/, '');
   if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');

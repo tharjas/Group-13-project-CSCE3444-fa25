@@ -1,6 +1,8 @@
 // Updated src/components/LiveContrastViewer.jsx
 // Added isDark prop and 'dark-mode' class
 // FIXED: Back button now persistent (fixed position) and better contrast (blue bg, white text)
+// Improved layout and styling for better UX
+// Enhanced advice logic for low contrast scenarios
 
 import React, { useState } from 'react';
 
