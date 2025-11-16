@@ -1,11 +1,8 @@
 // src/components/AccessibilityViewer.jsx
 
-/*This feature Feature Description:
-● Implementing contrast checker for WCAG AA/AAA compliance testing.
-● Developing grayscale simulation for accessibility preview.
-● Adding text preview functionality to show readability differences. */
-
 // Created AccessibilityViewer component to preview palette accessibility
+// Shows contrast ratios, grayscale simulation, and text readability
+// Helps users ensure their color palettes are accessible
 
 import React from 'react';
 
