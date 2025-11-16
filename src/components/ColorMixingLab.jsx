@@ -6,6 +6,11 @@
 
 */
 
+// Created ColorMixingLab component for advanced color blending
+// Allows users to mix multiple colors with adjustable weights
+// Supports adding colors from favorites, presets, or custom picker
+// Displays mixed result with copy and use options
+
 
 import React, { useState, useEffect } from 'react';
 import ColorWheel from './ColorWheel';
