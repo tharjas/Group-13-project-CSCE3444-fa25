@@ -1,9 +1,10 @@
 // src/components/colorChallenge/AdditiveColorChallenge.jsx
 
-/*
-This feature includes a challenge for mixing colors to obtain another color
-
-*/ 
+// Created AdditiveColorChallenge component for users to practice additive color mixing
+// Users select colors to mix additively to match a target color
+// Provides feedback on correctness and tracks completed challenges
+// Utilizes RGB color model for additive mixing calculations
+// Includes preset bright colors and custom color picker for selection
 import React, { useState, useEffect } from 'react';
 
 const hexToRgb = (hex) => {
