@@ -1,4 +1,6 @@
 // src/components/ColorSchemeWheel.jsx
+// Color Scheme Wheel component for ClearColor Picker
+// Allows users to explore color schemes based on a selected base color
 import React, { useState, useEffect, useRef } from 'react';
 
 // Reuse your existing utils (or import from utils)

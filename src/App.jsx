@@ -20,6 +20,7 @@ import AdditiveColorChallenge from './components/colorChallenge/AdditiveColorCha
 import AccessibilityViewer from './components/Accessibility/AccessibilityViewer';
 import ColorDecomposition from './components/ColorDecomposition/ColorDecomposition.jsx';
 import ColorSchemeWheel from './components/ColorScheme/ColorSchemeWheel.jsx';
+import ColorHistory from './components/ColorHistory.jsx';
 
 function App() {
   const [color, setColor] = useState('#ffffff');
@@ -123,8 +124,6 @@ const addToPalette = (hex) => {
           <h1>ClearColor Picker</h1>
 
           <ColorWheel color={color} setColor={setColor} />
-          <ColorInputs color={color} setColor={setColor} />
-          <ColorInputs color={color} setColor={setColor} />
           <ColorInputs color={color} setColor={setColor} />
           <ColorDecomposition color={color} />
 
