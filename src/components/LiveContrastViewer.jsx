@@ -3,6 +3,8 @@
 // FIXED: Back button now persistent (fixed position) and better contrast (blue bg, white text)
 // Improved layout and styling for better UX
 // Enhanced advice logic for low contrast scenarios
+// Refactored code for clarity and maintainability
+
 
 import React, { useState } from 'react';
 
