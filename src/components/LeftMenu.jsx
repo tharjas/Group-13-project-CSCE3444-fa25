@@ -1,5 +1,6 @@
-// FIXED: src/components/LeftMenu.jsx
+// src/components/LeftMenu.jsx
 // Compact icon buttons with tooltips + even spacing
+// REMOVED: Color Scheme Wheel button as requested
 
 import React, { useState, useEffect, useMemo } from 'react';
 import { hexToHsl, hslToHex } from '../utils/colorUtils';
@@ -38,14 +39,11 @@ const LeftMenu = ({ color, setColor, isDark, toggleDark, setActiveView, setViewP
     setViewProps({ isDark });
   };
   const openAdditiveChallenge = () => {
-  setActiveView('additive-challenge');
-  setViewProps({ initialColor: color, setColor, isDark });
-};
+    setActiveView('additive-challenge');
+    setViewProps({ initialColor: color, setColor, isDark });
+  };
 
-const openSchemeWheel = () => {
-  setActiveView('scheme-wheel');
-  setViewProps({ color, setColor, isDark, addToPalette });
-};
+  // REMOVED: openSchemeWheel function and related button
 
   return (
     <aside className="side-menu left-menu">
@@ -155,32 +153,10 @@ const openSchemeWheel = () => {
           >
             👁️
           </button>
-          <button
-          onClick={openAdditiveChallenge}
-          title="Color Addition Challenge"
-          style={{
-            width: '48px',
-              height: '48px',
-              background: '#fff',
-              border: '2px solid #ccc',
-              borderRadius: '8px',
-              fontSize: '1.4rem',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              transition: 'all 0.2s'
-            
-             }}
-          onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0,123,255,0.3)')}
-            onMouseLeave={e => (e.currentTarget.style.boxShadow = 'none')}
->
-  🔆
-    </button>
 
-    <button
-            onClick={openContrastViewer}
-            title="Color Scheme Wheel"
+          <button
+            onClick={openAdditiveChallenge}
+            title="Color Addition Challenge"
             style={{
               width: '48px',
               height: '48px',
@@ -197,10 +173,10 @@ const openSchemeWheel = () => {
             onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0,123,255,0.3)')}
             onMouseLeave={e => (e.currentTarget.style.boxShadow = 'none')}
           >
-            🌀
+            🔆
           </button>
 
-          
+          {/* REMOVED: Color Scheme Wheel button (🌀) */}
         </div>
       </div>
     </aside>
