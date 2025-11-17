@@ -1,4 +1,7 @@
 // src/components/ContrastChecker.jsx
+// WCAG Contrast Checker component for ClearColor Picker
+// Analyzes contrast ratios between colors in the current palette
+// Provides pass/fail results based on WCAG AA/AAA standards
 import React, { useState } from 'react';
 
 // WCAG Luminance & Contrast
