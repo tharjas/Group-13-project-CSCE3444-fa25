@@ -21,14 +21,22 @@ import AccessibilityViewer from './components/Accessibility/AccessibilityViewer'
 import ColorDecomposition from './components/ColorDecomposition/ColorDecomposition.jsx';
 import ColorSchemeWheel from './components/ColorScheme/ColorSchemeWheel.jsx';
 import ColorHistory from './components/ColorHistory.jsx';
+import { addColorToHistory, loadHistory } from './utils/colorHistory';
 
 function App() {
   const [color, setColor] = useState('#ffffff');
+  const [colorHistoryState, setColorHistoryState] = useState([]);
+
+  useEffect(() => {
+    setColorHistoryState(loadHistory());
+  }, []);
+
   // Wrapper for global color updates
 const updateColor = (hex) => {
   console.log("Adding to history:", hex);
   setColor(hex);
-  addColorToHistory(hex);   // <-- update history here
+  const updated = addColorToHistory(hex);
+  setColorHistoryState(updated);
 };
 
   const [palette, setPalette] = useState([]);
@@ -123,18 +131,18 @@ const addToPalette = (hex) => {
         <div className="app-container">
           <h1>ClearColor Picker</h1>
 
-          <ColorWheel color={color} setColor={setColor} />
-          <ColorInputs color={color} setColor={setColor} />
+          <ColorWheel color={color} setColor={updateColor} />
+          <ColorInputs color={color} setColor={updateColor} />
           <ColorDecomposition color={color} />
 
           <button onClick={addColorToPalette} className="full-width">
             Add to Palette
           </button>
             <ColorHistory
-              persist={true}
+              history={colorHistoryState}
               onSelect={updateColor}
             />
-
+            
           <Favorites currentColor={color} onSelectFavorite={handleFavoriteSelect} />
 
           <PaletteManager palette={palette} removeColor={removeColorFromPalette} />
