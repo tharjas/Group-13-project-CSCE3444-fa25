@@ -21,9 +21,15 @@ import AccessibilityViewer from './components/Accessibility/AccessibilityViewer'
 import ColorDecomposition from './components/ColorDecomposition/ColorDecomposition.jsx';
 import ColorSchemeWheel from './components/ColorScheme/ColorSchemeWheel.jsx';
 
-
 function App() {
   const [color, setColor] = useState('#ffffff');
+  // Wrapper for global color updates
+const updateColor = (hex) => {
+  console.log("Adding to history:", hex);
+  setColor(hex);
+  addColorToHistory(hex);   // <-- update history here
+};
+
   const [palette, setPalette] = useState([]);
   const [savedPalettes, setSavedPalettes] = useState([]);
   const [selectedPaletteForSimulation, setSelectedPaletteForSimulation] = useState(null);
@@ -69,7 +75,7 @@ function App() {
 
   const removeSavedPalette = (i) => setSavedPalettes(savedPalettes.filter((_, idx) => idx !== i));
 
-  const handleFavoriteSelect = (hex) => setColor(hex);
+  const handleFavoriteSelect = (hex) => updateColor(hex);
 
   const handleBack = () => {
     setActiveView('picker');
@@ -105,7 +111,7 @@ const addToPalette = (hex) => {
     <>
       <LeftMenu
         color={color}
-        setColor={setColor}
+        setColor={updateColor}
         isDark={isDark}
         toggleDark={setIsDark}
         setActiveView={setActiveView}
@@ -118,11 +124,17 @@ const addToPalette = (hex) => {
 
           <ColorWheel color={color} setColor={setColor} />
           <ColorInputs color={color} setColor={setColor} />
+          <ColorInputs color={color} setColor={setColor} />
+          <ColorInputs color={color} setColor={setColor} />
           <ColorDecomposition color={color} />
 
           <button onClick={addColorToPalette} className="full-width">
             Add to Palette
           </button>
+            <ColorHistory
+              persist={true}
+              onSelect={updateColor}
+            />
 
           <Favorites currentColor={color} onSelectFavorite={handleFavoriteSelect} />
 
@@ -175,7 +187,7 @@ const addToPalette = (hex) => {
         </div>
       </main>
 
-      <RightMenu setPalette={setPalette} setColor={setColor} isDark={isDark} />
+      <RightMenu setPalette={setPalette} setColor={updateColor} isDark={isDark} />
     </>
   );
 }
