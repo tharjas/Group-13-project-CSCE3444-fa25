@@ -1,9 +1,27 @@
 // src/components/ColorSchemeWheel.jsx
 // Color Scheme Wheel component for ClearColor Picker
 // Allows users to explore color schemes based on a selected base color
+// Clickable wheel with scheme markers and ability to add scheme colors to palette
 import React, { useState, useEffect, useRef } from 'react';
 
+
 // Reuse your existing utils (or import from utils)
+
+
+const hexToRgb = (hex) => {
+  hex = hex.replace(/^#/, '');
+  if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
+  const num = parseInt(hex, 16);
+  return { r: (num >> 16) & 255, g: (num >> 8) & 255, b: num & 255 };
+};
+
+const rgbToHex = (r, g, b) => {
+  const clamp = (val) => Math.max(0, Math.min(255, Math.round(val)));
+  return `#${((1 << 24) + (clamp(r) << 16) + (clamp(g) << 8) + clamp(b))
+    .toString(16)
+    .slice(1)
+    .toUpperCase()}`;
+};
 const hexToHsl = (hex) => {
   const { r, g, b } = hexToRgb(hex);
   const rNorm = r / 255, gNorm = g / 255, bNorm = b / 255;
@@ -37,21 +55,6 @@ const hslToHex = (h, s, l) => {
   else if (240 <= h && h < 300) [r, g, b] = [x, 0, c];
   else [r, g, b] = [c, 0, x];
   return rgbToHex((r + m) * 255, (g + m) * 255, (b + m) * 255);
-};
-
-const hexToRgb = (hex) => {
-  hex = hex.replace(/^#/, '');
-  if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
-  const num = parseInt(hex, 16);
-  return { r: (num >> 16) & 255, g: (num >> 8) & 255, b: num & 255 };
-};
-
-const rgbToHex = (r, g, b) => {
-  const clamp = (val) => Math.max(0, Math.min(255, Math.round(val)));
-  return `#${((1 << 24) + (clamp(r) << 16) + (clamp(g) << 8) + clamp(b))
-    .toString(16)
-    .slice(1)
-    .toUpperCase()}`;
 };
 
 const ColorSchemeWheel = ({ color, setColor, onBack, isDark, addToPalette }) => {
