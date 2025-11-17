@@ -5,7 +5,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { hexToHsl, hslToHex } from '../utils/colorUtils';
 
-const LeftMenu = ({ color, setColor, isDark, toggleDark, setActiveView, setViewProps }) => {
+const LeftMenu = ({ color, setColor, isDark, toggleDark, setActiveView, setViewProps,addToPalette }) => {
   const [localDark, setLocalDark] = useState(isDark);
   useEffect(() => setLocalDark(isDark), [isDark]);
 
@@ -42,7 +42,10 @@ const LeftMenu = ({ color, setColor, isDark, toggleDark, setActiveView, setViewP
     setActiveView('additive-challenge');
     setViewProps({ initialColor: color, setColor, isDark });
   };
-
+const openSchemeWheel = () => {
+  setActiveView('scheme-wheel');
+  setViewProps({ color, setColor, isDark, addToPalette }); // ✅ now defined
+};
   // REMOVED: openSchemeWheel function and related button
 
   return (
@@ -174,6 +177,27 @@ const LeftMenu = ({ color, setColor, isDark, toggleDark, setActiveView, setViewP
             onMouseLeave={e => (e.currentTarget.style.boxShadow = 'none')}
           >
             🔆
+          </button>
+          <button
+            onClick={openSchemeWheel}
+            title="Color Scheme Wheel"
+            style={{
+              width: '48px',
+              height: '48px',
+              background: '#fff',
+              border: '2px solid #ccc',
+              borderRadius: '8px',
+              fontSize: '1.4rem',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transition: 'all 0.2s'
+            }}
+            onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0,123,255,0.3)')}
+            onMouseLeave={e => (e.currentTarget.style.boxShadow = 'none')}
+          >
+            🌀
           </button>
 
           {/* REMOVED: Color Scheme Wheel button (🌀) */}

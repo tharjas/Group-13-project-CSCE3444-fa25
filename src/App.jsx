@@ -99,6 +99,10 @@ const updateColor = (hex) => {
   if (activeView === 'scheme-wheel') {
   return <ColorSchemeWheel {...viewProps} onBack={handleBack} isDark={isDark} />;
 }
+
+if (activeView === 'scheme-wheel') {
+  return <ColorSchemeWheel {...viewProps} onBack={handleBack} isDark={isDark} />;
+}
 // Enhance addToPalette to accept color
 const addToPalette = (hex) => {
   if (palette.length >= 5) {
@@ -117,6 +121,7 @@ const addToPalette = (hex) => {
         toggleDark={setIsDark}
         setActiveView={setActiveView}
         setViewProps={setViewProps}
+        addToPalette={addToPalette}
       />
 
       <main className="main-content">
