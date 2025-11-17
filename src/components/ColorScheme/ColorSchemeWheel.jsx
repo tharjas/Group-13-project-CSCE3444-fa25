@@ -2,11 +2,8 @@
 // Color Scheme Wheel component for ClearColor Picker
 // Allows users to explore color schemes based on a selected base color
 // Clickable wheel with scheme markers and ability to add scheme colors to palette
+// Refactored for clarity and maintainability
 import React, { useState, useEffect, useRef } from 'react';
-
-
-// Reuse your existing utils (or import from utils)
-
 
 const hexToRgb = (hex) => {
   hex = hex.replace(/^#/, '');
