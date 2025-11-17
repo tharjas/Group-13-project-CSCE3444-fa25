@@ -1,8 +1,11 @@
+// src/components/ColorInputs.jsx
+// Color Input Fields component for ClearColor Picker
+// Allows users to input colors in HEX, RGB, and HSL formats
+// F15: Displays color breakdown in all three formats below inputs
+
+
 import React, { useState, useEffect } from 'react';
 
-// Helper functions for color conversions
-// Hex to RGB
-//Toggle Between Color Models
 const hexToRgb = (hex) => {
   hex = hex.replace(/^#/, '');
   if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
