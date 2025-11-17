@@ -1,7 +1,7 @@
-// src/components/ColorDecomposition/ColorDecomposition.jsx
-//Created Color Decomposition component to generate tints, shades, and tones of a given color
+// src/components/ColorDecomposition.jsx
 import React, { useEffect, useState } from 'react';
 
+// Reuse your existing utils (no need to redefine if already in scope)
 const hexToHsl = (hex) => {
   const { r, g, b } = hexToRgb(hex);
   const rNorm = r / 255, gNorm = g / 255, bNorm = b / 255;

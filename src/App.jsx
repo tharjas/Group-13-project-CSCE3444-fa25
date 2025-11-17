@@ -118,8 +118,6 @@ const addToPalette = (hex) => {
 
           <ColorWheel color={color} setColor={setColor} />
           <ColorInputs color={color} setColor={setColor} />
-          <ColorInputs color={color} setColor={setColor} />
-          <ColorInputs color={color} setColor={setColor} />
           <ColorDecomposition color={color} />
 
           <button onClick={addColorToPalette} className="full-width">
