@@ -344,4 +344,4 @@ const ColorMixingLab = ({
   );
 };
 
-export default ColorMixingLab;
+export default ColorMixingTool;
