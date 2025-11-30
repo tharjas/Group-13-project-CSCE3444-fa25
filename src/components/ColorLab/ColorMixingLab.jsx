@@ -1,4 +1,4 @@
-// src/components/ColorMixingLab.jsx
+// src/components/ColorLab/ColorMixingLab.jsx
 /*F13 Color Mixing Tool
 ● Building the Color Mixer component with RGB and HSL blending sliders.
 ● Implementing color interpolation algorithms and preview updates.
@@ -13,7 +13,7 @@
 
 
 import React, { useState, useEffect } from 'react';
-import ColorWheel from './ColorWheel';
+import ColorWheel from '../ColorWheel';
 
 // ---- Preset Colors ----
 const brightPresets = [
