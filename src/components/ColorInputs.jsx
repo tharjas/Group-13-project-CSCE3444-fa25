@@ -1,7 +1,7 @@
 // src/components/ColorInputs.jsx
 // Color Input Fields component for ClearColor Picker
 // Allows users to input colors in HEX, RGB, and HSL formats
-// F15: Displays color breakdown in all three formats below inputs
+
 
 
 import React, { useState, useEffect } from 'react';
@@ -179,12 +179,7 @@ const ColorInputs = ({ color, setColor }) => {
     </div>
 
     {/* F15: HEX Code Breakdown */}
-    <div style={{ marginTop: '1rem', padding: '0.5rem', background: 'rgba(0,0,0,0.03)', borderRadius: '6px', fontSize: '0.9rem' }}>
-      <strong>Color Breakdown:</strong><br />
-      HEX: {color}<br />
-      RGB: {hexToRgb(color).r}, {hexToRgb(color).g}, {hexToRgb(color).b}<br />
-      HSL: {hexToHsl(color).h}°, {hexToHsl(color).s}%, {hexToHsl(color).l}%
-    </div>
+
 
     {error && <div style={{ color: 'red', gridColumn: '1 / -1', marginTop: '0.5rem' }}>{error}</div>}
   </div>

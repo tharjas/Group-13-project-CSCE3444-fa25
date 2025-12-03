@@ -11,6 +11,17 @@ const LeftMenu = ({ color, setColor, isDark, toggleDark, setActiveView, setViewP
 
   const handleToggle = () => toggleDark(!localDark);
 
+  const [tints, setTints] = useState([]);
+  const [shades, setShades] = useState([]);
+  const [tones, setTones] = useState([]);
+
+  useEffect(() => {
+    const { h, s, l } = hexToHsl(color);
+    setTints(Array.from({ length: 5 }, (_, i) => hslToHex(h, s, Math.min(100, l + (i + 1) * 10))));
+    setShades(Array.from({ length: 5 }, (_, i) => hslToHex(h, s, Math.max(0, l - (i + 1) * 10))));
+    setTones(Array.from({ length: 5 }, (_, i) => hslToHex(h, Math.max(0, s - (i + 1) * 15), l)));
+  }, [color]);
+
   const complementary = useMemo(() => {
     const { h, s, l } = hexToHsl(color);
     return hslToHex((h + 180) % 360, s, l);
@@ -22,9 +33,6 @@ const LeftMenu = ({ color, setColor, isDark, toggleDark, setActiveView, setViewP
     const right = (h + 30) % 360;
     return [hslToHex(left, s, l), hslToHex(right, s, l)];
   }, [color]);
-
-  const { h, s, l } = hexToHsl(color);
-  const rgb = `rgb(${parseInt(color.slice(1, 3), 16)}, ${parseInt(color.slice(3, 5), 16)}, ${parseInt(color.slice(5, 7), 16)})`;
 
   const openMixingLab = () => {
     setActiveView('mixing-lab');
@@ -82,9 +90,30 @@ const openSchemeWheel = () => {
       </div>
 
       <div className="menu-section">
-        <h4>Info</h4>
-        <p>HSL: {h}°, {s}%, {l}%</p>
-        <p>{rgb}</p>
+        <h4>Tints</h4>
+        <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
+          {tints.map((c, i) => (
+            <div key={i} className="swatch" style={{ background: c, width: '24px', height: '24px', cursor: 'pointer', borderRadius: '4px' }} onClick={() => setColor(c)} title={c} />
+          ))}
+        </div>
+      </div>
+
+      <div className="menu-section">
+        <h4>Shades</h4>
+        <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
+          {shades.map((c, i) => (
+            <div key={i} className="swatch" style={{ background: c, width: '24px', height: '24px', cursor: 'pointer', borderRadius: '4px' }} onClick={() => setColor(c)} title={c} />
+          ))}
+        </div>
+      </div>
+
+      <div className="menu-section">
+        <h4>Tones</h4>
+        <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
+          {tones.map((c, i) => (
+            <div key={i} className="swatch" style={{ background: c, width: '24px', height: '24px', cursor: 'pointer', borderRadius: '4px' }} onClick={() => setColor(c)} title={c} />
+          ))}
+        </div>
       </div>
 
       {/* ----- ICON BUTTONS ----- */}

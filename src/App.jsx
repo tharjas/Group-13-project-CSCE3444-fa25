@@ -18,7 +18,7 @@ import LeftMenu from './components/LeftMenu';
 import RightMenu from './components/RightMenu';
 import AdditiveColorChallenge from './components/colorChallenge/AdditiveColorChallenge';
 import AccessibilityViewer from './components/Accessibility/AccessibilityViewer';
-import ColorDecomposition from './components/ColorDecomposition/ColorDecomposition.jsx';
+
 import ColorSchemeWheel from './components/ColorScheme/ColorSchemeWheel.jsx';
 import ColorHistory from './components/ColorHistory.jsx';
 import { addColorToHistory, loadHistory } from './utils/colorHistory';
@@ -138,7 +138,7 @@ const addToPalette = (hex) => {
 
           <ColorWheel color={color} setColor={updateColor} />
           <ColorInputs color={color} setColor={updateColor} />
-          <ColorDecomposition color={color} />
+
 
           <button onClick={addColorToPalette} className="full-width">
             Add to Palette
