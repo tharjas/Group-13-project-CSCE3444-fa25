@@ -125,6 +125,9 @@ const ColorDecomposition = ({ color }) => {
           <h4 style={{ marginBottom: '0.5rem', fontSize: '1rem', fontWeight: '600' }}>➕ Tints</h4>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
             {tints.map((c, i) => (
+              //adds hover effect to scale up color boxes
+
+
               <div key={i} style={{
                 textAlign: 'center',
                 cursor: 'pointer',
