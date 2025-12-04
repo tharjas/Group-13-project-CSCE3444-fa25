@@ -22,9 +22,9 @@ import AccessibilityViewer from './components/Accessibility/AccessibilityViewer'
 import ColorSchemeWheel from './components/ColorScheme/ColorSchemeWheel.jsx';
 import ColorHistory from './components/ColorHistory.jsx';
 
-import ImagePaletteExtractor from './components/ImageToPalleteExtractor/ImagePaletteExtractor.jsx';
+import ImagePaletteExtractor from './components/ImagePalleteExtractor/ImagePaletteExtractor.jsx';
 import { addColorToHistory, loadHistory } from './utils/colorHistory';
-import BrandKitBuilder from './components/BrandKitBuilderComponent/BrandKitBuilder.jsx';
+import BrandKitBuilder from './components/BrandKitBuilder/BrandKitBuilder.jsx';
 
 function App() {
   const [color, setColor] = useState('#ffffff');
