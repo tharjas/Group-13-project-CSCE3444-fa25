@@ -65,7 +65,7 @@ const hexToHsv = (hex) => {
   };
 };
 
-const ColorWheel = ({ color, setColor }) => {
+const ColorWheel = ({ color, setColor, onColorCommit }) => {
   const wheelCanvasRef = useRef(null);
   const valueCanvasRef = useRef(null);
   const [draggingWheel, setDraggingWheel] = useState(false);
@@ -201,6 +201,12 @@ const ColorWheel = ({ color, setColor }) => {
     }
   };
 
+  const commitCurrentColor = () => {
+    if (!onColorCommit) return;
+    const hex = hsvToHex(selectedHue, selectedSat, selectedValue);
+    onColorCommit(hex);
+  };
+
   return (
     <div className="color-wheel-container" style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexDirection: 'column' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -210,10 +216,16 @@ const ColorWheel = ({ color, setColor }) => {
           height={wheelSize}
           style={{ cursor: 'crosshair', display: 'block' }}
           onMouseDown={() => setDraggingWheel(true)}
-          onMouseUp={() => setDraggingWheel(false)}
+          onMouseUp={() => {
+            setDraggingWheel(false);
+            commitCurrentColor();
+          }}
           onMouseLeave={() => setDraggingWheel(false)}
           onMouseMove={(e) => draggingWheel && handleWheelPointer(e)}
-          onClick={handleWheelPointer}
+          onClick={(e) => {
+            handleWheelPointer(e);
+            commitCurrentColor();
+          }}
         />
         <canvas
           ref={valueCanvasRef}
@@ -221,10 +233,16 @@ const ColorWheel = ({ color, setColor }) => {
           height={valueHeight}
           style={{ cursor: 'crosshair', display: 'block', border: '2px solid #ccc', borderRadius: '4px' }}
           onMouseDown={() => setDraggingValue(true)}
-          onMouseUp={() => setDraggingValue(false)}
+          onMouseUp={() => {
+            setDraggingValue(false);
+            commitCurrentColor();
+          }}
           onMouseLeave={() => setDraggingValue(false)}
           onMouseMove={(e) => draggingValue && handleValuePointer(e)}
-          onClick={handleValuePointer}
+          onClick={(e) => {
+            handleValuePointer(e);
+            commitCurrentColor();
+          }}
         />
       </div>
       <div

@@ -136,7 +136,11 @@ const addToPalette = (hex) => {
         <div className="app-container">
           <h1>ClearColor Picker</h1>
 
-          <ColorWheel color={color} setColor={updateColor} />
+          <ColorWheel
+            color={color}
+            setColor={setColor}
+            onColorCommit={updateColor}
+          />
           <ColorInputs color={color} setColor={updateColor} />
 
 
