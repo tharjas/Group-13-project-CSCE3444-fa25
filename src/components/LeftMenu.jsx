@@ -4,9 +4,11 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import { hexToHsl, hslToHex } from '../utils/colorUtils';
+import GradientGenerator from './GradientGenerator';
 
 const LeftMenu = ({ color, setColor, isDark, toggleDark, setActiveView, setViewProps }) => {
   const [localDark, setLocalDark] = useState(isDark);
+  const [showGradientGenerator, setShowGradientGenerator] = useState(false);
   useEffect(() => setLocalDark(isDark), [isDark]);
 
   const handleToggle = () => toggleDark(!localDark);
@@ -41,6 +43,10 @@ const LeftMenu = ({ color, setColor, isDark, toggleDark, setActiveView, setViewP
   const openAdditiveChallenge = () => {
     setActiveView('additive-challenge');
     setViewProps({ initialColor: color, setColor, isDark });
+  };
+
+  const toggleGradientGenerator = () => {
+    setShowGradientGenerator(!showGradientGenerator);
   };
 
   // REMOVED: openSchemeWheel function and related button
@@ -176,9 +182,38 @@ const LeftMenu = ({ color, setColor, isDark, toggleDark, setActiveView, setViewP
             🔆
           </button>
 
+          <button
+            onClick={toggleGradientGenerator}
+            title="Gradient Generator"
+            style={{
+              width: '48px',
+              height: '48px',
+              background: '#fff',
+              border: '2px solid #ccc',
+              borderRadius: '8px',
+              fontSize: '1.4rem',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transition: 'all 0.2s'
+            }}
+            onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0,123,255,0.3)')}
+            onMouseLeave={e => (e.currentTarget.style.boxShadow = 'none')}
+          >
+            🌈
+          </button>
+
           {/* REMOVED: Color Scheme Wheel button (🌀) */}
         </div>
       </div>
+
+      {/* Gradient Generator Accordion */}
+      {showGradientGenerator && (
+        <div className="menu-section">
+          <GradientGenerator selectedColor={color} onPickColor={setColor} />
+        </div>
+      )}
     </aside>
   );
 };
