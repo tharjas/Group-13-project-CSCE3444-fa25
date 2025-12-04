@@ -50,12 +50,27 @@ const LeftMenu = ({ color, setColor, isDark, toggleDark, setActiveView, setViewP
     setActiveView('additive-challenge');
     setViewProps({ initialColor: color, setColor, isDark });
   };
-const openSchemeWheel = () => {
-  setActiveView('scheme-wheel');
-  setViewProps({ color, setColor, isDark, addToPalette }); // ✅ now defined
-};
-  // REMOVED: openSchemeWheel function and related button
+  const openSchemeWheel = () => {
+    setActiveView('scheme-wheel');
+    setViewProps({ color, setColor, isDark, addToPalette }); // ✅ now defined
+  };
 
+  const buttonStyle = {
+    width: '48px',
+    height: '48px',
+    background: isDark ? '#1e1e1e' : '#fff',
+    border: isDark ? '2px solid #343a40' : '2px solid #ccc',
+    borderRadius: '8px',
+    fontSize: '1.4rem',
+    cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    transition: 'all 0.2s',
+    color: isDark ? '#e9ecef' : '#212529'
+  };
+
+  // REMOVED: openSchemeWheel function and related button
   return (
     <aside className="side-menu left-menu">
       <h3>Color Tools</h3>
@@ -123,19 +138,7 @@ const openSchemeWheel = () => {
           <button
             onClick={openMixingLab}
             title="Color Mixing Lab"
-            style={{
-              width: '48px',
-              height: '48px',
-              background: '#fff',
-              border: '2px solid #ccc',
-              borderRadius: '8px',
-              fontSize: '1.4rem',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              transition: 'all 0.2s'
-            }}
+            style={buttonStyle}
             onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0,123,255,0.3)')}
             onMouseLeave={e => (e.currentTarget.style.boxShadow = 'none')}
           >
@@ -145,19 +148,7 @@ const openSchemeWheel = () => {
           <button
             onClick={openSchemeInfo}
             title="Color Scheme Info"
-            style={{
-              width: '48px',
-              height: '48px',
-              background: '#fff',
-              border: '2px solid #ccc',
-              borderRadius: '8px',
-              fontSize: '1.4rem',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              transition: 'all 0.2s'
-            }}
+            style={buttonStyle}
             onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0,123,255,0.3)')}
             onMouseLeave={e => (e.currentTarget.style.boxShadow = 'none')}
           >
@@ -167,19 +158,7 @@ const openSchemeWheel = () => {
           <button
             onClick={openContrastViewer}
             title="Live Contrast Viewer"
-            style={{
-              width: '48px',
-              height: '48px',
-              background: '#fff',
-              border: '2px solid #ccc',
-              borderRadius: '8px',
-              fontSize: '1.4rem',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              transition: 'all 0.2s'
-            }}
+            style={buttonStyle}
             onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0,123,255,0.3)')}
             onMouseLeave={e => (e.currentTarget.style.boxShadow = 'none')}
           >
@@ -189,19 +168,7 @@ const openSchemeWheel = () => {
           <button
             onClick={openAdditiveChallenge}
             title="Color Addition Challenge"
-            style={{
-              width: '48px',
-              height: '48px',
-              background: '#fff',
-              border: '2px solid #ccc',
-              borderRadius: '8px',
-              fontSize: '1.4rem',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              transition: 'all 0.2s'
-            }}
+            style={buttonStyle}
             onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0,123,255,0.3)')}
             onMouseLeave={e => (e.currentTarget.style.boxShadow = 'none')}
           >
@@ -210,19 +177,7 @@ const openSchemeWheel = () => {
           <button
             onClick={openSchemeWheel}
             title="Color Scheme Wheel"
-            style={{
-              width: '48px',
-              height: '48px',
-              background: '#fff',
-              border: '2px solid #ccc',
-              borderRadius: '8px',
-              fontSize: '1.4rem',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              transition: 'all 0.2s'
-            }}
+            style={buttonStyle}
             onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0,123,255,0.3)')}
             onMouseLeave={e => (e.currentTarget.style.boxShadow = 'none')}
           >
