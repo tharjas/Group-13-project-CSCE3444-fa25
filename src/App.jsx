@@ -1,6 +1,7 @@
 // src/App.jsx
 // Main application component for ClearColor Picker
-// Manages state for current color, palette, saved palettes, and various modals/views
+// Updated with Gradient Generator and Image Palette Extractor
+
 import React, { useState, useEffect } from 'react';
 import ColorWheel from './components/ColorWheel';
 import ColorInputs from './components/ColorInputs';
@@ -18,10 +19,12 @@ import LeftMenu from './components/LeftMenu';
 import RightMenu from './components/RightMenu';
 import AdditiveColorChallenge from './components/colorChallenge/AdditiveColorChallenge';
 import AccessibilityViewer from './components/Accessibility/AccessibilityViewer';
-
 import ColorSchemeWheel from './components/ColorScheme/ColorSchemeWheel.jsx';
 import ColorHistory from './components/ColorHistory.jsx';
+
+import ImagePaletteExtractor from './components/ImageToPalleteExtractor/ImagePaletteExtractor.jsx';
 import { addColorToHistory, loadHistory } from './utils/colorHistory';
+import BrandKitBuilder from './components/BrandKitBuilderComponent/BrandKitBuilder.jsx';
 
 function App() {
   const [color, setColor] = useState('#ffffff');
@@ -32,12 +35,12 @@ function App() {
   }, []);
 
   // Wrapper for global color updates
-const updateColor = (hex) => {
-  console.log("Adding to history:", hex);
-  setColor(hex);
-  const updated = addColorToHistory(hex);
-  setColorHistoryState(updated);
-};
+  const updateColor = (hex) => {
+    console.log("Adding to history:", hex);
+    setColor(hex);
+    const updated = addColorToHistory(hex);
+    setColorHistoryState(updated);
+  };
 
   const [palette, setPalette] = useState([]);
   const [savedPalettes, setSavedPalettes] = useState([]);
@@ -91,6 +94,20 @@ const updateColor = (hex) => {
     setViewProps({});
   };
 
+ // Enhance addToPalette to accept color with feedback
+  const addToPalette = (hex) => {
+    if (palette.length >= 5) {
+      showSnackbar('Palette is full (5 colors max). Remove some colors first.', 'error');
+      return false;
+    }
+    if (palette.includes(hex)) {
+      showSnackbar('This color is already in your palette!', 'warning');
+      return false;
+    }
+    setPalette([...palette, hex]);
+    return true;
+  };
+  
   // === FULL-PAGE VIEWS ===
   if (activeView === 'mixing-lab') {
     return <ColorMixingLab {...viewProps} onBack={handleBack} isDark={isDark} />;
@@ -105,20 +122,22 @@ const updateColor = (hex) => {
     return <AdditiveColorChallenge {...viewProps} onBack={handleBack} isDark={isDark} />;
   }
   if (activeView === 'scheme-wheel') {
-  return <ColorSchemeWheel {...viewProps} onBack={handleBack} isDark={isDark} />;
-}
-
-if (activeView === 'scheme-wheel') {
-  return <ColorSchemeWheel {...viewProps} onBack={handleBack} isDark={isDark} />;
-}
-// Enhance addToPalette to accept color
-const addToPalette = (hex) => {
-  if (palette.length >= 5) {
-    alert('Palette is full (5 colors max)');
-    return;
+    return <ColorSchemeWheel {...viewProps} onBack={handleBack} isDark={isDark} />;
   }
-  if (!palette.includes(hex)) setPalette([...palette, hex]);
-};
+  // NEW: Gradient Generator view
+  if (activeView === 'gradient-generator') {
+    return <GradientGenerator {...viewProps} onBack={handleBack} isDark={isDark} />;
+  }
+  // NEW: Image Palette Extractor view
+  if (activeView === 'image-extractor') {
+    return <ImagePaletteExtractor {...viewProps} onBack={handleBack} isDark={isDark} />;
+  }
+  // NEW: Brand Kit Builder view
+  if (activeView === 'brand-kit-builder') {
+    return <BrandKitBuilder {...viewProps} onBack={handleBack} isDark={isDark} />;
+  }
+
+
   // === MAIN PICKER VIEW ===
   return (
     <>
@@ -143,14 +162,14 @@ const addToPalette = (hex) => {
           />
           <ColorInputs color={color} setColor={updateColor} />
 
-
           <button onClick={addColorToPalette} className="full-width">
             Add to Palette
           </button>
-            <ColorHistory
-              history={colorHistoryState}
-              onSelect={updateColor}
-            />
+          
+          <ColorHistory
+            history={colorHistoryState}
+            onSelect={updateColor}
+          />
             
           <Favorites currentColor={color} onSelectFavorite={handleFavoriteSelect} />
 
@@ -170,7 +189,7 @@ const addToPalette = (hex) => {
             setSelectedPaletteForSimulation={setSelectedPaletteForSimulation}
             setShowUIMockups={setShowUIMockups}
             setShowContrastChecker={setShowContrastChecker}
-            setShowAccessibilityViewer={setShowAccessibilityViewer} // ← Passed down
+            setShowAccessibilityViewer={setShowAccessibilityViewer}
           />
 
           {/* Modals */}

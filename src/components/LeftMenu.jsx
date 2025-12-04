@@ -57,6 +57,17 @@ const LeftMenu = ({ color, setColor, isDark, toggleDark, setActiveView, setViewP
     setViewProps({ color, setColor, isDark, addToPalette }); // ✅ now defined
   };
 
+  // NEW: Open Image Palette Extractor
+  const openImageExtractor = () => {
+    setActiveView('image-extractor');
+    setViewProps({ isDark, addToPalette });
+  };
+  const openBrandKitBuilder = () => {
+    setActiveView('brand-kit-builder');
+    setViewProps({ initialColor: color, setColor, isDark, addToPalette });
+  };
+
+
   const buttonStyle = {
     width: '48px',
     height: '48px',
@@ -211,8 +222,27 @@ const LeftMenu = ({ color, setColor, isDark, toggleDark, setActiveView, setViewP
           >
             🌈
           </button>
+           {/* NEW: Image Palette Extractor Button */}
+          <button
+            onClick={openImageExtractor}
+            title="Extract Palette from Image"
+            style={buttonStyle}
+            onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0,123,255,0.3)')}
+            onMouseLeave={e => (e.currentTarget.style.boxShadow = 'none')}
+          >
+            🖼️
+          </button>
+          {/* NEW: Brand Kit Builder Button */}
+          <button
+            onClick={openBrandKitBuilder}
+            title="Brand Kit Builder"
+            style={buttonStyle}
+            onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0,123,255,0.3)')}
+            onMouseLeave={e => (e.currentTarget.style.boxShadow = 'none')}
+          >
+            🏢
+          </button>
 
-          {/* REMOVED: Color Scheme Wheel button (🌀) */}
         </div>
       </div>
 
