@@ -24,7 +24,9 @@ import ColorHistory from './components/ColorHistory.jsx';
 
 import ImagePaletteExtractor from './components/ImagePalleteExtractor/ImagePaletteExtractor.jsx';
 import { addColorToHistory, loadHistory } from './utils/colorHistory';
-import BrandKitBuilder from './components/BrandKitBuilder/BrandKitBuilder.jsx';
+import BrandKitBuilder from './components/Brand_KitBuilder/BrandKitBuilder.jsx';
+import HarmonyScorer from './components/HarmonyScorer/HarmonyScorer.jsx';
+
 
 function App() {
   const [color, setColor] = useState('#ffffff');
@@ -129,15 +131,17 @@ function App() {
     return <GradientGenerator {...viewProps} onBack={handleBack} isDark={isDark} />;
   }
   // NEW: Image Palette Extractor view
-  if (activeView === 'image-extractor') {
-    return <ImagePaletteExtractor {...viewProps} onBack={handleBack} isDark={isDark} />;
-  }
+  // if (activeView === 'image-extractor') {
+  //   return <ImagePaletteExtractor {...viewProps} onBack={handleBack} isDark={isDark} />;
+  // }
   // NEW: Brand Kit Builder view
   if (activeView === 'brand-kit-builder') {
     return <BrandKitBuilder {...viewProps} onBack={handleBack} isDark={isDark} />;
   }
 
-
+ if (activeView === 'image-extractor') {
+    return <ImagePaletteExtractor {...viewProps} onBack={handleBack} isDark={isDark} addToPalette={addToPalette} palette={palette} />;
+  }
   // === MAIN PICKER VIEW ===
   return (
     <>
@@ -174,6 +178,8 @@ function App() {
           <Favorites currentColor={color} onSelectFavorite={handleFavoriteSelect} />
 
           <PaletteManager palette={palette} removeColor={removeColorFromPalette} />
+          <HarmonyScorer palette={palette} />
+
 
           <button
             onClick={saveCurrentPalette}

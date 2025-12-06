@@ -223,33 +223,66 @@ const ImagePaletteExtractor = ({ onBack, isDark, addToPalette }) => {
   };
 
   const handleAddAllToPalette = () => {
-    if (!extractedColors.length) {
-      showSnackbar('No colors to add. Extract colors first!', 'warning');
-      return;
-    }
+  if (!extractedColors.length) {
+    showSnackbar('No colors to add. Extract colors first!', 'warning');
+    return;
+  }
 
-    let addedCount = 0;
-    let skippedCount = 0;
+  // 🔥 Deduplicate extracted colors (critical fix)
+  const uniqueColors = [...new Set(extractedColors)];
 
-    for (const color of extractedColors) {
-      if (addToPalette) {
-        const result = addToPalette(color);
-        if (result === true) {
-          addedCount++;
-        } else {
-          skippedCount++;
-        }
+  let addedCount = 0;
+  let skippedCount = 0;
+
+  for (const color of uniqueColors) {
+    if (addToPalette) {
+      const result = addToPalette(color);
+      if (result === true) {
+        addedCount++;
+      } else {
+        skippedCount++;
       }
     }
+  }
 
-    if (addedCount > 0 && skippedCount === 0) {
-      showSnackbar(`Successfully added all ${addedCount} colors to palette!`, 'success');
-    } else if (addedCount > 0 && skippedCount > 0) {
-      showSnackbar(`Added ${addedCount} colors. ${skippedCount} skipped (duplicates or palette full).`, 'info');
-    } else {
-      showSnackbar('Could not add colors. Palette might be full or colors already exist.', 'warning');
-    }
-  };
+  // Show appropriate feedback
+  if (addedCount > 0 && skippedCount === 0) {
+    showSnackbar(`Successfully added all ${addedCount} colors to palette!`, 'success');
+  } else if (addedCount > 0 && skippedCount > 0) {
+    showSnackbar(`Added ${addedCount} colors. ${skippedCount} skipped (duplicates or palette full).`, 'info');
+  } else {
+    showSnackbar('Could not add colors. Palette might be full or colors already exist.', 'warning');
+  }
+};
+
+  // const handleAddAllToPalette = () => {
+  //   if (!extractedColors.length) {
+  //     showSnackbar('No colors to add. Extract colors first!', 'warning');
+  //     return;
+  //   }
+
+  //   let addedCount = 0;
+  //   let skippedCount = 0;
+
+  //   for (const color of extractedColors) {
+  //     if (addToPalette) {
+  //       const result = addToPalette(color);
+  //       if (result === true) {
+  //         addedCount++;
+  //       } else {
+  //         skippedCount++;
+  //       }
+  //     }
+  //   }
+
+  //   if (addedCount > 0 && skippedCount === 0) {
+  //     showSnackbar(`Successfully added all ${addedCount} colors to palette!`, 'success');
+  //   } else if (addedCount > 0 && skippedCount > 0) {
+  //     showSnackbar(`Added ${addedCount} colors. ${skippedCount} skipped (duplicates or palette full).`, 'info');
+  //   } else {
+  //     showSnackbar('Could not add colors. Palette might be full or colors already exist.', 'warning');
+  //   }
+  // };
 
   const handleDragOver = (e) => {
     e.preventDefault();
