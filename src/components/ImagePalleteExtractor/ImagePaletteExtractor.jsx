@@ -477,7 +477,7 @@ const ImagePaletteExtractor = ({ onBack, isDark, addToPalette }) => {
             </div>
           )}
 
-          {/* Extracted Palette */}
+          {/* Extracted Palettes */}
           {extractedColors.length > 0 && (
             <div style={cardStyle}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
